@@ -228,7 +228,7 @@ class CrmIntervention(orm.Model):
                     continue
                 q = self._compute_standard_price(cr, uid, line.product_id, context=context)
                 amount = q * line.product_qty
-                unit_amount = q
+                unit_amount = line.product_qty
                 unit = line.product_uom_id.id
                 vals = {
                     'ref': _('BI Num %s') % inter.number_request,

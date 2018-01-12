@@ -53,6 +53,7 @@
         'test/equipment_history.yml',
         'test/intervention.yml',
         'test/intervention_discount.yml',
+        'test/intervention_contract.yml',
     ],
     'installable': True,
     'active': False,
