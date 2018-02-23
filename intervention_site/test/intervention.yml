@@ -55,6 +55,7 @@
       date_effective_start: !eval "time.strftime('%Y-%m-01 13:00:00')"
       duration_effective: 5.0
       pause_effective: 1.0
+      inc_visit: True
       description: This intervention is made correctly
 -
     Check if end date is compute correctly
@@ -166,6 +167,14 @@
   !python {model: intervention.line}: |
       line = self.browse(cr, uid, ref('intervention_line1'))
       assert line.move_id.location_id.id == ref('stock.stock_location_components'), 'Location dest must be shelf 1'
+-
+    Check on equipment if the next vist date is compute
+-
+  !python {model: crm.intervention}: |
+      inter = self.browse(cr, uid, ref('crm_intervention_test1'))
+      assert inter.date_effective_start[:10] < inter.equipment_id.next_date, 'Last intervention date must be updated'
+      assert inter.date_effective_start[:10] == inter.site_id.last_date, 'Last intervention date must be updated'
+
 
 
 

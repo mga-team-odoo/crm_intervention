@@ -1,13 +1,13 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 # * intervention_site
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2017.
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2017, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-27 14:15+0000\n"
-"PO-Revision-Date: 2017-09-27 16:18+0200\n"
+"PO-Revision-Date: 2018-02-23 13:45+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -170,12 +170,12 @@ msgstr "Date de début d'intervention"
 #. module: intervention_site
 #: help:intervention.site,last_date:0
 msgid "Date to the last inspection"
-msgstr "Date de la dernière inspection"
+msgstr "Date de la dernière visite"
 
 #. module: intervention_site
 #: help:intervention.site,next_date:0
 msgid "Date to the next inspection"
-msgstr "Date de la prochaine inspection"
+msgstr "Date de la prochaine visite"
 
 #. module: intervention_site
 #: help:intervention.equipment,buy_date:0
@@ -345,12 +345,12 @@ msgstr "Indique la prochaine date de visite"
 #. module: intervention_site
 #: view:intervention.site:0
 msgid "Inspection in 15 days"
-msgstr "Inspection sur 15 jours"
+msgstr "Visite sur 15 jours"
 
 #. module: intervention_site
 #: view:intervention.site:0
 msgid "Inspection planned in next 15 days"
-msgstr "Inspection a planifié sur 15 jours"
+msgstr "Visite à planifier sur 15 jours"
 
 #. module: intervention_site
 #: code:_description:0
@@ -385,7 +385,7 @@ msgstr "Facture lié à ce contrat"
 #. module: intervention_site
 #: field:intervention.site,last_date:0
 msgid "Last Inspection"
-msgstr "Dernière inspection"
+msgstr "Dernière visite"
 
 #. module: intervention_site
 #: field:intervention.equipment,last_int_date:0
@@ -504,7 +504,7 @@ msgstr "Nouvelle intervention"
 #. module: intervention_site
 #: field:intervention.site,next_date:0
 msgid "Next Inspection"
-msgstr "Prochaine inspection"
+msgstr "Prochaine visite"
 
 #. module: intervention_site
 #: field:intervention.equipment,next_date:0

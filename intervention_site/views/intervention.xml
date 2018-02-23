@@ -29,6 +29,9 @@
                         </tree>
                     </field>
                 </xpath>
+                <xpath expr="//field[@name='alldays_effective']" position="after">
+                    <field name="inc_visit"/>
+                </xpath>
                 <xpath expr="//group[@name='general_global']" position="inside">
                     <field name="site_id" 
                         on_change="onchange_site_id(site_id, partner_id)"/>

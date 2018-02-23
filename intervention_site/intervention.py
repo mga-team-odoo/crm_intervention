@@ -2,8 +2,11 @@
 
 from openerp.osv import orm
 from openerp.osv import fields
+from openerp import tools
 from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
+import datetime
+from dateutil.relativedelta import relativedelta
 
 
 class ResPartner(orm.Model):
@@ -41,6 +44,13 @@ class CrmIntervention(orm.Model):
         'src_location_id': fields.many2one(
             'stock.location', 'Location',
             help='Location where the products have been consumed'),
+        'inc_visit': fields.boolean(
+            'Include inspection',
+            help='Check this box, if an inspection have been made on intervention'),
+    }
+
+    _defaults = {
+        'inc_visit': False,
     }
 
     def onchange_user_id(self, cr, uid, ids, user):
@@ -261,7 +271,8 @@ class CrmIntervention(orm.Model):
             default = {}
 
         default.update({
-            'line_ids': None
+            'line_ids': None,
+            'inc_visit': False,
         })
 
         return super(CrmIntervention, self).copy(
@@ -299,6 +310,16 @@ class CrmIntervention(orm.Model):
                         'summary': summary,
                     }
                     hist_obj.create(cr, uid, hist_args, context=context)
+
+                    if rec.inc_visit:  # Compute date for the next visit
+                        val_month = rec.site_id and rec.site_id.inspection_month or 12
+                        rec.equipment_id.write({
+                            'next_date': datetime.datetime.strptime(
+                                rec.date_effective_start, tools.DEFAULT_SERVER_DATETIME_FORMAT) +
+                            relativedelta(months=val_month),
+                        })
+                        if rec.site_id:
+                            rec.site_id.write({'last_date': rec.date_effective_start})
 
         return super(CrmIntervention, self).write(cr, uid, ids, values, context=context)
 
