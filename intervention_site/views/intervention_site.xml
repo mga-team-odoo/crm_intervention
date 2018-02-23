@@ -56,12 +56,10 @@
                                 <tree string="Equipment">
                                     <field name="name"/>
                                     <field name="type_id"/>
-                                    <field name="site_id"/>
                                     <field name="serial_number"/>
                                     <field name="eow_date"/>
                                     <field name="last_int_date"/>
                                     <field name="next_date"/>
-                                    <field name="partner_id"/>
                                     <field name="contract_id"/>
                                     <field name="out_of_contract"/>
                                 </tree>

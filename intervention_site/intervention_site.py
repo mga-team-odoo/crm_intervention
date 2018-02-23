@@ -93,6 +93,21 @@ class InterventionSite(orm.Model):
 
         return super(InterventionSite, self).create(cr, uid, values, context=context)
 
+    def unlink(self, cr, uid, ids, context=None):
+        """
+        Block delete site, if equipment is present
+        """
+        if context is None:
+            context = {}
+
+        for site in self.browse(cr, uid, ids, context=context):
+            if site.equipment_ids:
+                raise orm.except_orm(
+                    _('Error'),
+                    _('You cannot delete site with equipments!! Please inactivate it'))
+
+        return super(InterventionSite, self).unlink(cr, uid, ids, context=context)
+
     def create_intervention(self, cr, uid, ids, context=None):
         """Create an inetrvention from the site"""
         inter_obj = self.pool['crm.intervention']

@@ -142,6 +142,21 @@ class InterventionEquipment(orm.Model):
 
         return super(InterventionEquipment, self).create(cr, uid, values, context=context)
 
+    def unlink(self, cr, uid, ids, context=None):
+        """
+        Block delete if equipment have histories
+        """
+        if context is None:
+            context = {}
+
+        for equip in self.browse(cr, uid, ids, context=context):
+            if equip.history_ids:
+                raise orm.except_orm(
+                    _('Error'),
+                    _('You cannot delete equipemnt with history!!, please inactivate it'))
+
+        return super(InterventionEquipment, self).unlink(cr, uid, ids, context=context)
+
 
 class InterventionEquipmentHistory(orm.Model):
     _name = 'intervention.equipment.history'
