@@ -9,6 +9,7 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <tree string="Equipments">
+                    <field name="code"/>
                     <field name="name"/>
                     <field name="type_id"/>
                     <field name="site_id"/>
@@ -40,6 +41,8 @@
                             <label for="site_id" class="oe_edit_only"/>
                             <h2><field name="site_id" attrs="{'readonly': [('name','=', '/')]}"/></h2>
                             <div name="options" groups="base.group_user">
+                                <label for="code" string="Code"/>
+                                <field name="code"/>
                                 <field name="active"/>
                                 <label for="active" string="Active"/>
                             </div>

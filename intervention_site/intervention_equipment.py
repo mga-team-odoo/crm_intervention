@@ -47,12 +47,15 @@ class InterventionEquipment(orm.Model):
     _columns = {
         'name': fields.char(
             'Name', required=True, size=64, help='Name of the equipment'),
+        'code': fields.char(
+            'Equipement Code', size=32,
+            help='Code for this equipment, keep / for automatic code'),
         'site_id': fields.many2one(
             'intervention.site', 'Site',
             help='Site where the equipment is visible'),
         'partner_id': fields.related(
             'site_id', 'partner_id', type='many2one', relation='res.partner',
-            string='Customer', store=True, help='Customer link to the site'),
+            string='Address', store=True, help='Address fill on the site'),
         'active': fields.boolean(
             'Active', help='if check, this object is always available'),
         'buy_date': fields.date(
@@ -98,7 +101,7 @@ class InterventionEquipment(orm.Model):
     }
 
     _defaults = {
-        'name': '/',
+        'code': '/',
         'active': True,
         'company_id': lambda s, cr, uid,c:
             s.pool.get('res.company')._company_default_get(
@@ -133,8 +136,9 @@ class InterventionEquipment(orm.Model):
         if context is None:
             context = {}
 
-        if values.get('name', '') == '/':
-            values['name'] = self.pool.get('ir.sequence').get(cr, uid, 'intervention.equip') or '/'
+        if values.get('code', '') == '/':
+            values['code'] = self.pool.get('ir.sequence').get(
+                cr, uid, 'intervention.equip') or _('Sequence Not Defined on the company!!')
 
         return super(InterventionEquipment, self).create(cr, uid, values, context=context)
 

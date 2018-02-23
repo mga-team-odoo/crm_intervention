@@ -3,6 +3,7 @@
 -
   !record {model: intervention.equipment, id: inter_equip_test1}:
       name: Synology NAS
+      code: /
       site_id: intervention_site_test1
       buy_date: !eval "time.strftime('%Y-01-01')"
       eow_date: !eval "time.strftime('%Y-12-31')"
@@ -19,6 +20,7 @@
 -
   !record {model: intervention.equipment, id: inter_equip_test2}:
       name: Synology NAS
+      code: /
       site_id: intervention_site_test1
       buy_date: !eval "time.strftime('%Y-01-10')"
       eow_date: !eval "time.strftime('%Y-12-31')"
@@ -36,6 +38,7 @@
 -
   !record {model: intervention.equipment, id: inter_equip_test3}:
       name: Synology NAS
+      code: /
       site_id: intervention_site_test1
       buy_date: !eval "time.strftime('%Y-02-11')"
       eow_date: !eval "time.strftime('%Y-12-31')"

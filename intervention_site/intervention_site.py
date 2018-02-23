@@ -2,6 +2,7 @@
 
 from openerp.osv import orm
 from openerp.osv import fields
+from openerp.tools.translate import _
 import time
 
 
@@ -13,7 +14,7 @@ class InterventionSite(orm.Model):
         'name': fields.char(
             'Site Name', size=64, required=True, help='Name of the site'),
         'code': fields.char(
-            'Site Code', size=16,
+            'Site Code', size=32,
             help='Code for this site, keep / for automatic code'),
         'partner_id': fields.many2one(
             'res.partner', 'Address', help='Select address for this site'),
@@ -87,7 +88,8 @@ class InterventionSite(orm.Model):
             context = {}
 
         if values.get('code', '') == '/':
-            values['code'] = self.pool.get('ir.sequence').get(cr, uid, 'intervention.site') or '/'
+            values['code'] = self.pool.get('ir.sequence').get(
+                cr, uid, 'intervention.site') or _('Sequence not defined on company')
 
         return super(InterventionSite, self).create(cr, uid, values, context=context)
 
