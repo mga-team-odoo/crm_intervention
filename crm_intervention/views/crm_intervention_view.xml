@@ -234,7 +234,9 @@
             <field name="model">crm.intervention</field>
             <field name="arch" type="xml">
                 <gantt date_stop="date_planned_end" date_start="date_planned_start" 
-                    string="Interventions" default_group_by="user_id"/>
+                    string="Interventions" default_group_by="user_id">
+                    <field name="number_request"/>
+                </gantt>
             </field>
         </record>
 
