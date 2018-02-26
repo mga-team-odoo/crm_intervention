@@ -3,6 +3,7 @@
 from openerp.osv import orm
 from openerp.osv import fields
 from openerp.tools.translate import _
+import openerp.addons.decimal_precision as dp
 
 EQUIP_STATUS = [
     ('owner', _('Owner')),
@@ -98,6 +99,28 @@ class InterventionEquipment(orm.Model):
         'status': fields.selection(
             EQUIP_STATUS, 'Status',
             help='Status for this equipment'),
+        'free1': fields.char(
+            'Free 1', size=64, help='Free field, use as you want'),
+        'free2': fields.char(
+            'Free 2', size=64, help='Free field, use as you want'),
+        'free3': fields.char(
+            'Free 3', size=64, help='Free field, use as you want'),
+        'free4': fields.char(
+            'Free 4', size=64, help='Free field, use as you want'),
+        'free5': fields.char(
+            'Free 5', size=64, help='Free field, use as you want'),
+        'num1': fields.float(
+            'Num 1', digits_compute=dp.get_precision('Product Unit of Measure'),
+            help='Numeric field, use as you want'),
+        'num2': fields.float(
+            'Num 2', digits_compute=dp.get_precision('Product Unit of Measure'),
+            help='Numeric field, use as you want'),
+        'dat1': fields.date(
+            'Date 1', help='Free date, use as you want'),
+        'dat2': fields.date(
+            'Date 2', help='Free date, use as you want'),
+        'dat3': fields.date(
+            'Date 2', help='Free date, use as you want'),
     }
 
     _defaults = {
@@ -107,6 +130,8 @@ class InterventionEquipment(orm.Model):
             s.pool.get('res.company')._company_default_get(
                 cr, uid, 'intervention.equipment', context=c),
         'status': '',
+        'num1': 0.0,
+        'num2': 0.0,
     }
 
     def name_get(self, cr, uid, ids, context=None):
