@@ -92,6 +92,24 @@
                             <page string="Notes">
                                 <field name="notes" nolabel="1" colspan="4"/>
                             </page>
+                            <page string="Others">
+                                <group>
+                                    <group>
+                                        <field name="free1"/>
+                                        <field name="free2"/>
+                                        <field name="free3"/>
+                                        <field name="free4"/>
+                                        <field name="free5"/>
+                                    </group>
+                                    <group>
+                                        <field name="num1"/>
+                                        <field name="num2"/>
+                                        <field name="dat1"/>
+                                        <field name="dat2"/>
+                                        <field name="dat3"/>
+                                    </group>
+                                </group>
+                            </page>
                         </notebook>
                     </sheet>
                 </form>
