@@ -13,6 +13,7 @@
                     <field name="src_location_id" domain="[('usage','=', 'internal')]"/>
                     <button string="Create Output" type="object"
                         name="create_output_move"/>
+                    <field name="inc_visit"/>
                     <field name="line_ids" nolabel="1" colspan="6" attrs="{'readonly': [('state','=', 'done')]}">
                         <tree string="Lines" editable="bottom">
                             <field name="product_id"
@@ -28,9 +29,6 @@
                             <field name="analytic_line_id" groups="base.group_crm_intervention_manager"/>
                         </tree>
                     </field>
-                </xpath>
-                <xpath expr="//field[@name='alldays_effective']" position="after">
-                    <field name="inc_visit"/>
                 </xpath>
                 <xpath expr="//group[@name='general_global']" position="inside">
                     <field name="site_id" 

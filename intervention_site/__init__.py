@@ -3,4 +3,5 @@
 import intervention_site
 import intervention_equipment
 import intervention
+import report
 import wizard

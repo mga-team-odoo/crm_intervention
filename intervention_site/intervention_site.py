@@ -70,10 +70,12 @@ class InterventionSite(orm.Model):
             context = {}
         if not len(ids):
             return []
-        sites = self.browse(cr, uid, ids, context=context)
+
         res = []
-        for site in sites:
+        for site in self.browse(cr, uid, ids, context=context):
             name = site.name
+            if site.code and site.code != '/':
+                name = '[' + site.code + '] ' + name
             p = site.partner_id
             if p:
                 name += ' (%s %s)' % (p.zip or '',p.city or '')

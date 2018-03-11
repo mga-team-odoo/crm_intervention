@@ -824,6 +824,10 @@ class crm_intervention(base_state, base_stage, orm.Model):
                     _('Please define a cost price for the product %s') % inter.product_id.name)  # noqa
 
             emp = self._get_employee(cr, uid, inter, context=context)
+            if not inter.section_id:
+                raise orm.except_orm(
+                    _('Error'),
+                    _('No section defined on this intervention!'))
 
             if inter.alldays_effective:
                 q = self.pool['product.uom']._compute_price(

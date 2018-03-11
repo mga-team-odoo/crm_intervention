@@ -1,0 +1,68 @@
+-
+    Create a contract
+-
+  !record {model: account.analytic.account, id: contract_loc}:
+      name: Contrat Location 2
+      partner_id: base.res_partner_2
+      use_timesheets: True
+      use_inter: True
+      type: contract
+      code: TESTXXXXX1
+      date_start: !eval "time.strftime('%Y-%m-01')"
+      pricelist_id: product.list0
+      to_invoice: hr_timesheet_invoice.timesheet_invoice_factor1
+-
+    Create an analytic journal type general
+-
+  !record {model: account.analytic.journal, id: ann_journal_1}:
+      name: Location
+      code: LOC
+      type: general
+-
+    Create an equipment for invoicing
+-
+  !record {model: intervention.equipment, id: inter_equip_inv1}:
+      name: Server location EC11
+      code: /
+      buy_date: !eval "time.strftime('%Y-01-01')"
+      eow_date: !eval "time.strftime('%Y-12-31')"
+      product_number: LOCA10
+      serial_number: CUST10
+      invoicing_enabled: True
+      invoicing_contract_id: contract_loc
+      invoicing_journal_id: ann_journal_1
+      invoicing_product_id: product.product_product_24
+      invoicing_quantity: 2.0
+      invoicing_period: 2
+      invoicing_next_date: !eval "time.strftime('%Y-01-01')"
+-
+    Check if recurring_invoicing is enabled
+-
+  !python {model: intervention.equipment }: |
+      import time
+      inter = self.browse(cr, uid, ref('inter_equip_inv1'))
+      assert inter.invoicing_enabled == True, "Reccuring invicing enabled"
+      assert inter.invoicing_next_date == time.strftime('%Y-01-01'), "Date must be 1st January"
+-
+    Click on button to invoice
+-
+  !python {model: intervention.equipment }: |
+      import time
+      inter = self.browse(cr, uid, ref('inter_equip_inv1'))
+      self.trigger_invoice(cr, uid, [inter.id])
+      inter = self.browse(cr, uid, ref('inter_equip_inv1'))
+      assert inter.invoicing_next_date == time.strftime('%Y-03-01'), "Date must be 1st March"
+-
+    Check if line is available in the contract
+-
+  !python {model: account.analytic.line }: |
+      line_ids = self.search(cr, uid, [
+          ('account_id', '=', ref('contract_loc')),
+          ('journal_id', '=', ref('ann_journal_1')),
+      ])
+      assert len(line_ids) == 1, "Only one line this contract and journal"
+      ln = self.browse(cr, uid, line_ids[0])
+      pro = self.pool['product.product'].browse(cr, uid, ref('product.product_product_24'))
+      assert ln.product_id.id == pro.id, "Bad product on account invoice line"
+      assert ln.unit_amount == 2.0, "Quantity must be 2 (%s)" % ln.unit_amount
+      assert ln.product_uom_id.id == pro.uom_id.id, "Bad unit on line %s" % ln.product_uom_id
