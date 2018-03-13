@@ -1,0 +1,11 @@
+-
+    Create an intervention with site
+-
+  !record {model: crm.intervention, id: crm_intervention_test1}:
+      name: Intervention Test distance
+      partner_id: base.res_partner_2
+      customer_information: Test\ntest
+      site_id: intervention_site_test1
+      equipment_id: inter_equip_test1
+
+

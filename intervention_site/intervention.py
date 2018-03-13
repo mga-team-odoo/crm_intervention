@@ -144,6 +144,33 @@ class CrmIntervention(orm.Model):
             vals['contract_id'] = False
         return {'value': vals}
 
+    def case_pending(self, cr,uid, ids, context=None):
+        """
+        Force output stock on pending mode
+        """
+        site_obj = self.pool['intervention.site']
+        for inter in self.browse(cr, uid, ids, context=context):
+            if not inter.site_id:
+                continue
+            extr = site_obj._compute_extra_product(
+                cr, uid, inter.site_id.id, [], context=context)
+            if extr:
+                vals = []
+                pro_ids = [p.product_id.id for p in inter.line_ids]
+                for e in extr:
+                    # Check if product already appear on lines
+                    if e['product_id'] in pro_ids:
+                        continue
+                    vals.append((0, 0, e))
+                if vals:
+                    inter.write({
+                        'line_ids': vals,
+                    }, context=context)
+
+        self.create_output_move(cr, uid, ids, context=context)
+        return super(CrmIntervention, self).case_pending(
+            cr, uid, ids, context=context)
+
     def create_output_move(self, cr, uid, ids, context=None):
         """
         Create moves based on lines entries

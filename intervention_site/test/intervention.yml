@@ -66,12 +66,6 @@
       log('Date end is %s' % inter.date_effective_end)
       assert inter.date_effective_end == time.strftime('%Y-%m-01 19:00:00'), 'End effective hour must be 19:00'
 -
-     intervention to invoice, click on the button 
--
-  !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test1'))
-      inter.case_pending()
--
     Add product to invoice this intervention
 -
   !record {model: crm.intervention, id: crm_intervention_test1}:
@@ -137,6 +131,7 @@
       inter = self.browse(cr, uid, ref('crm_intervention_test1'))
       inter.write({'src_location_id': ref('stock.stock_location_stock')})
       inter.create_output_move()
+      inter.case_pending()
 -
     Generate invoice 
 -
@@ -174,8 +169,3 @@
       inter = self.browse(cr, uid, ref('crm_intervention_test1'))
       assert inter.date_effective_start[:10] < inter.equipment_id.next_date, 'Last intervention date must be updated'
       assert inter.date_effective_start[:10] == inter.site_id.last_date, 'Last intervention date must be updated'
-
-
-
-
-

@@ -12,4 +12,26 @@
   !python {model: intervention.site}: |
       site = self.browse(cr, uid, ref('intervention_site_test1'))
       assert site.company_id.id == ref('base.main_company'), 'Company must be fill automatically'
-
+-
+    Create product with distance
+-
+  !record {model: product.product, id: product_dist1}:
+      name: Distance fees
+      code: ODIST001
+      standard_price: 200.0
+      list_price: 215.0
+      categ_id: product.product_category_1
+      uom_id: product.product_uom_categ_unit
+      uom_po_id: product.product_uom_categ_unit
+      type: service
+-
+    Create an site with distance
+-
+  !record {model: intervention.site, id: intervention_site_dist1}:
+      name: Paris Site distance
+      partner_id: base.res_partner_2
+      customer_id: base.res_partner_2
+      user_id: base.user_demo
+      distance_product_id: product_dist1
+      distance_quantity: 1.0
+      distance_name: Distance 235Kmx2

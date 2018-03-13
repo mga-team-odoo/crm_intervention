@@ -3,6 +3,7 @@
 from openerp.osv import orm
 from openerp.osv import fields
 from openerp.tools.translate import _
+import openerp.addons.decimal_precision as dp
 import time
 
 
@@ -51,6 +52,18 @@ class InterventionSite(orm.Model):
             'partner_id', 'city', type='char',
             relation='res.partner', string='City',
             help='City for the physical address of the site'),
+        'distance_product_id': fields.many2one(
+            'product.product', 'Distance product',
+            help='Product to invoice distance'),
+        'distance_quantity': fields.float(
+            'Quantity', digits_compute=dp.get_precision('Product Unit of Measure'),
+            help='Quantity of distance to invoice'),
+        'distance_uom_id': fields.related(
+            'distance_product_id', 'uom_id', type='many2one', relation='product.uom',
+            string='Distance UOM',
+            help='Unit associate to the distance, cannot be changed'),
+        'distance_name': fields.char(
+            'Description', size=64, help='Description to invoice'),
     }
 
     _defaults = {
@@ -60,6 +73,7 @@ class InterventionSite(orm.Model):
             s.pool.get('res.company')._company_default_get(
                 cr, uid, 'intervention.site', context=c),
         'inspection_month': 12,
+        'distance_quantity': 1.0,
     }
 
     def name_get(self, cr, uid, ids, context=None):
@@ -134,3 +148,21 @@ class InterventionSite(orm.Model):
             int_args.update(part_vals['value'])
             int_ids.append(inter_obj.create(cr, uid, int_args, context=context))
         return inter_obj.open_intervention(cr, uid, int_ids, context=context)
+
+    def _compute_extra_product(self, cr, uid, site_id, extras=None, context=None):
+        """
+        Hook to compute extra product like distance
+        """
+        if extras is None:
+            extras = []
+
+        this = self.browse(cr, uid, site_id, context=context)
+        if this.distance_product_id:
+            extras.append({
+                'product_id': this.distance_product_id.id,
+                'product_qty': this.distance_quantity,
+                'product_uom_id': this.distance_uom_id.id,
+                'name': this.distance_name,
+                'to_invoice': True
+            })
+        return extras

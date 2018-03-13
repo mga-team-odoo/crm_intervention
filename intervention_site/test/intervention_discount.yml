@@ -64,12 +64,6 @@
       log('Date end is %s' % inter.date_effective_end)
       assert inter.date_effective_end == time.strftime('%Y-%m-01 19:00:00'), 'End effective hour must be 19:00'
 -
-     intervention to invoice, click on the button 
--
-  !python {model: crm.intervention}: |
-      inter = self.browse(cr, uid, ref('crm_intervention_test12'))
-      inter.case_pending()
--
     Add product to invoice this intervention
 -
   !record {model: crm.intervention, id: crm_intervention_test12}:
@@ -104,6 +98,8 @@
       inter = self.browse(cr, uid, ref('crm_intervention_test12'))
       assert inter.invoice_id.id == False, 'This intervention must not invoiced yet!'
       assert inter.contract_id.id == False, 'No contract in this test'
+      inter.write({'src_location_id': ref('stock.stock_location_stock')})
+      inter.case_pending()
       inter.prepare_invoice()
 -
     Check invoice generate with free USB Adapter

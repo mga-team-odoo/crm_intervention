@@ -432,11 +432,41 @@
             </field>
         </record>
 
+        <!-- ************************************************************** -->
+        <!-- ** New view for Planning, only base on crm.intervention ****** -->
+        <!-- ************************************************************** -->
+
+        <record id="action_intervention_planning_form" model="ir.actions.act_window">
+            <field name="name">Planning</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.intervention</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">gantt,calendar</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref=""/>
+            <field name="search_view_id" ref=""/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_inter_plan_calendar_view_act111">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="crm_case_intervention_calendar_view"/>
+            <field name="act_window_id" ref="action_intervention_planning_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_inter_plan_gantt_view_act111">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">gantt</field>
+            <field name="view_id" ref="crm_intervention_gantt_view"/>
+            <field name="act_window_id" ref="action_intervention_planning_form"/>
+        </record>
+
         <menuitem id="intervention_planning_menu" 
             parent="menu_intersupport_main"
-            sequence="4"
+            sequence="2"
             name="Planning"
-            action="base_calendar.action_crm_meeting"/>
+            action="action_intervention_planning_form"/>
 
     </data>
 </openerp>

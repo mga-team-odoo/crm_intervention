@@ -30,45 +30,75 @@
             <field name="type">form</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <form string="Sites">
-                    <field name="name"/>
-                    <field name="code"/>
-                    <field name="customer_id"
-                        context="{'show_address': 1}" options='{"always_reload": True}'/>
-                    <field name="partner_id"
-                        context="{'show_address': 1}" options='{"always_reload": True}'/>
-                    <field name="contract_id" 
-                        domain="[('type','=','contract'),('partner_id', '=', customer_id), ('use_inter','=',True)]"/>
-                    <field name="active"/>
-                    <field name="company_id" widget="selection" groups="base.group_multi_company"/>
-                    <field name="section_id" widget="selection" domain="[('use_inter','=', True)]"/>
-                    <field name="user_id"/>
-                    <notebook colspan="4">
-                        <page string="Equipments">
-                            <group col="8" colspan="4">
-                                <field name="last_date"/>
-                                <field name="next_date"/>
-                                <field name="inspection_month"/>
-                                <button string="New Intervention" icon="gtk-ok"
-                                    type="object" name="create_intervention"/>
+                <form string="Sites" version="7.0">
+                    <sheet>
+                        <group>
+                            <group name="general1">
+                                <field name="name"/>
+                                <field name="customer_id"
+                                    context="{'show_address': 1}" options='{"always_reload": True}'/>
+                                <field name="contract_id" 
+                                    domain="[('type','=','contract'),('partner_id', '=', customer_id), ('use_inter','=',True)]"/>
+                                <field name="user_id"/>
+                                <field name="section_id" widget="selection" domain="[('use_inter','=', True)]"/>
                             </group>
-                            <field name="equipment_ids" nolabel="1" colspan="4">
-                                <tree string="Equipment">
-                                    <field name="name"/>
-                                    <field name="type_id"/>
-                                    <field name="serial_number"/>
-                                    <field name="eow_date"/>
-                                    <field name="last_int_date"/>
+                            <group name="general2">
+                                <field name="code"/>
+                                <field name="partner_id"
+                                    context="{'show_address': 1}" options='{"always_reload": True}'/>
+                                <field name="active"/>
+                                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                            </group>
+
+                        </group>
+
+                        <notebook colspan="4">
+                            <page string="Equipments">
+                                <group col="8" colspan="4">
+                                    <field name="last_date"/>
                                     <field name="next_date"/>
-                                    <field name="contract_id"/>
-                                    <field name="out_of_contract"/>
-                                </tree>
-                            </field>
-                        </page>
-                        <page string="Notes">
-                            <field name="notes" nolabel="1" colspan="4"/>
-                        </page>
-                    </notebook>
+                                    <field name="inspection_month"/>
+                                    <button string="New Intervention" icon="gtk-ok"
+                                        type="object" name="create_intervention"/>
+                                </group>
+                                <field name="equipment_ids" nolabel="1" colspan="4">
+                                    <tree string="Equipment">
+                                        <field name="name"/>
+                                        <field name="type_id"/>
+                                        <field name="serial_number"/>
+                                        <field name="eow_date"/>
+                                        <field name="last_int_date"/>
+                                        <field name="next_date"/>
+                                        <field name="contract_id"/>
+                                        <field name="out_of_contract"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Notes">
+                                <field name="notes" nolabel="1" colspan="4"/>
+                            </page>
+                            <page string="Invoicing" groups="base.group_crm_intervention_manager">
+                                <group>
+                                    <group name="invoicing">
+                                        <field name="distance_product_id"
+                                            domain="[('type','=','service')]"/>
+                                        <label for="distance_quantity"/>
+                                        <div>
+                                            <field name="distance_quantity"  class="oe_inline"
+                                                attrs="{'required': [('distance_product_id','!=', False)]}"/>
+                                            <field name="distance_uom_id" readonly="1"
+                                                class="oe_inline" attrs="{'required': [('distance_product_id','!=', False)]}"/>
+                                        </div>
+                                        <field name="distance_name"
+                                            attrs="{'required': [('distance_product_id','!=', False)]}"/>
+                                    </group>
+                                    <group>
+                                        <label string="Distance product only invoicing if address is not the same as company address"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
                 </form>
             </field>
         </record>
