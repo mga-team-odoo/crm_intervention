@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-11 19:44+0000\n"
-"PO-Revision-Date: 2018-03-11 20:53+0200\n"
+"POT-Creation-Date: 2018-03-13 21:01+0000\n"
+"PO-Revision-Date: 2018-03-13 22:05+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -103,9 +103,11 @@ msgid "Company"
 msgstr "Société"
 
 #. module: intervention_site
-#: field:intervention.equipment,free1:0
-msgid "Free 1"
-msgstr "Libre 1"
+#: view:intervention.site:0
+msgid "Distance product only invoicing if address is not the same as company address"
+msgstr ""
+"Produit trajet facturable seulement si l'adresse n'est pas la même que la "
+"société"
 
 #. module: intervention_site
 #: field:intervention.equipment,free2:0
@@ -144,6 +146,7 @@ msgstr "Site ou l'équipement sera visible"
 
 #. module: intervention_site
 #: field:intervention.equipment,invoicing_quantity:0
+#: field:intervention.site,distance_quantity:0
 msgid "Quantity"
 msgstr "Quantité"
 
@@ -204,7 +207,7 @@ msgid "Group By..."
 msgstr "Grouper par..."
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:156
+#: code:addons/intervention_site/intervention.py:183
 #, python-format
 msgid "Missing location to made output movement"
 msgstr "Emplacement manquant pour faire la sortie de stock"
@@ -394,7 +397,7 @@ msgid "Shipping address :"
 msgstr "Adresse de livraison :"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:172
+#: code:addons/intervention_site/intervention.py:199
 #, python-format
 msgid "Lot is necessary for product \"%s\""
 msgstr "Le lot est necessaire pour ce produit \"%s\""
@@ -413,6 +416,11 @@ msgstr "Quantité de produit"
 #: help:intervention.line,prodlot_id:0
 msgid "If product is manage per lot, fill this field"
 msgstr "Si le produit est géré par lot, remplir ce champ"
+
+#. module: intervention_site
+#: help:intervention.site,distance_quantity:0
+msgid "Quantity of distance to invoice"
+msgstr "Quantité du trajet à facturer"
 
 #. module: intervention_site
 #: code:addons/intervention_site/intervention_equipment.py:270
@@ -520,7 +528,7 @@ msgstr ""
 "l'inactiver"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:109
+#: code:addons/intervention_site/intervention_site.py:123
 #, python-format
 msgid "You cannot delete site with equipments!! Please inactivate it"
 msgstr ""
@@ -579,6 +587,11 @@ msgid "Code of equipment type"
 msgstr "Code du type d'équipement"
 
 #. module: intervention_site
+#: field:intervention.equipment.history,user_id:0
+msgid "Users"
+msgstr "Utilisateurs"
+
+#. module: intervention_site
 #: view:generate.equipment.intervention:0
 msgid "Create intervention"
 msgstr "Créer une intervention"
@@ -600,6 +613,11 @@ msgstr "Générer une intervention pour cet équipement"
 #: help:intervention.site,active:0
 msgid "if check, this object is always available"
 msgstr "Si coché, cette objet sera toujours visible"
+
+#. module: intervention_site
+#: help:intervention.site,distance_name:0
+msgid "Description to invoice"
+msgstr "Desciptif sur la facture"
 
 #. module: intervention_site
 #: view:crm.intervention:0
@@ -628,9 +646,9 @@ msgid "Zip site"
 msgstr "Code postal du site"
 
 #. module: intervention_site
-#: help:intervention.site,customer_id:0
-msgid "Select customer for this site"
-msgstr "Sélectiopnner le client pour ce site"
+#: field:intervention.equipment,free1:0
+msgid "Free 1"
+msgstr "Libre 1"
 
 #. module: intervention_site
 #: help:intervention.site,zip:0
@@ -689,6 +707,11 @@ msgid "from"
 msgstr "de"
 
 #. module: intervention_site
+#: help:intervention.site,distance_product_id:0
+msgid "Product to invoice distance"
+msgstr "Produit pour facturer le trajet"
+
+#. module: intervention_site
 #: help:intervention.site,last_date:0
 msgid "Date to the last inspection"
 msgstr "Date de la dernière visite"
@@ -701,7 +724,7 @@ msgstr "Nouvelle intervention"
 #. module: intervention_site
 #: view:crm.intervention:0
 msgid "onchange_user_id(user_id)"
-msgstr ""
+msgstr "onchange_user_id(user_id)"
 
 #. module: intervention_site
 #: field:intervention.equipment,dat2:0
@@ -786,16 +809,16 @@ msgid "Out of contract"
 msgstr "Hors contrat"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:155
-#: code:addons/intervention_site/intervention.py:171
+#: code:addons/intervention_site/intervention.py:182
+#: code:addons/intervention_site/intervention.py:198
 #: code:addons/intervention_site/intervention_equipment.py:284
-#: code:addons/intervention_site/intervention_site.py:108
+#: code:addons/intervention_site/intervention_site.py:122
 #, python-format
 msgid "Error"
 msgstr "Erreur"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:94
+#: code:addons/intervention_site/intervention_site.py:108
 #, python-format
 msgid "Sequence not defined on company"
 msgstr "La séquence n'est pas définit sur la société"
@@ -850,6 +873,11 @@ msgid "General"
 msgstr "Général"
 
 #. module: intervention_site
+#: field:intervention.site,distance_uom_id:0
+msgid "Distance UOM"
+msgstr "Unité de trajet"
+
+#. module: intervention_site
 #: code:addons/intervention_site/intervention_equipment.py:16
 #: selection:intervention.equipment,status:0
 #, python-format
@@ -875,6 +903,11 @@ msgstr "Date de début d'intervention"
 #: help:intervention.equipment,out_of_contract:0
 msgid "This equipment"
 msgstr "Cet équipement"
+
+#. module: intervention_site
+#: help:intervention.site,customer_id:0
+msgid "Select customer for this site"
+msgstr "Sélectiopnner le client pour ce site"
 
 #. module: intervention_site
 #: view:account.analytic.account:0
@@ -910,6 +943,11 @@ msgid "Without site"
 msgstr "Sans site"
 
 #. module: intervention_site
+#: help:intervention.site,distance_uom_id:0
+msgid "Unit associate to the distance, cannot be changed"
+msgstr "Unité associé au trajet, ne peux pas être changer"
+
+#. module: intervention_site
 #: field:intervention.equipment,eow_date:0
 msgid "End of warranty"
 msgstr "Fin de garantie"
@@ -920,7 +958,7 @@ msgid "Buying date"
 msgstr "Date d'achat"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:244
+#: code:addons/intervention_site/intervention.py:271
 #, python-format
 msgid "BI Num %s"
 msgstr "BI Num %s"
@@ -948,9 +986,9 @@ msgid "Product"
 msgstr "Produit"
 
 #. module: intervention_site
-#: view:intervention.equipment:0
-msgid "Invoicing"
-msgstr "Facturation"
+#: field:intervention.site,distance_name:0
+msgid "Description"
+msgstr "Descriptif"
 
 #. module: intervention_site
 #: model:ir.model,name:intervention_site.model_intervention_equipment_type
@@ -1098,9 +1136,15 @@ msgid "Summary"
 msgstr "Résumé"
 
 #. module: intervention_site
-#: field:intervention.equipment.history,user_id:0
-msgid "Users"
-msgstr "Utilisateurs"
+#: view:intervention.equipment:0
+#: view:intervention.site:0
+msgid "Invoicing"
+msgstr "Facturation"
+
+#. module: intervention_site
+#: field:intervention.site,distance_product_id:0
+msgid "Distance product"
+msgstr "Produit trajet"
 
 #. module: intervention_site
 #: help:intervention.line,name:0

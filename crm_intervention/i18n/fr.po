@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-11 19:44+0000\n"
+"POT-Creation-Date: 2018-03-13 21:00+0000\n"
 "PO-Revision-Date: 2018-03-11 20:47+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
@@ -247,6 +247,7 @@ msgid "Holds the Chatter summary (number of messages, ...). This summary is dire
 msgstr ""
 
 #. module: crm_intervention
+#: model:ir.actions.act_window,name:crm_intervention.action_intervention_planning_form
 #: model:ir.ui.menu,name:crm_intervention.intervention_planning_menu
 msgid "Planning"
 msgstr "Planning"
