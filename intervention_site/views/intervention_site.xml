@@ -87,7 +87,7 @@
                                             <field name="distance_quantity"  class="oe_inline"
                                                 attrs="{'required': [('distance_product_id','!=', False)]}"/>
                                             <field name="distance_uom_id" readonly="1"
-                                                class="oe_inline" attrs="{'required': [('distance_product_id','!=', False)]}"/>
+                                                class="oe_inline"/>
                                         </div>
                                         <field name="distance_name"
                                             attrs="{'required': [('distance_product_id','!=', False)]}"/>
