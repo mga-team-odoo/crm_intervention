@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 15:38+0000\n"
-"PO-Revision-Date: 2018-03-19 15:38+0000\n"
+"POT-Creation-Date: 2018-03-19 16:55+0000\n"
+"PO-Revision-Date: 2018-03-19 16:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -366,6 +366,7 @@ msgid "Qty"
 msgstr ""
 
 #. module: intervention_site
+#: field:generate.equipment.intervention,type_id:0
 #: field:intervention.equipment,type_id:0
 #: view:intervention.equipment.type:0
 msgid "Type"
@@ -1049,6 +1050,11 @@ msgstr ""
 #. module: intervention_site
 #: help:intervention.equipment.type,name:0
 msgid "Name of equipment type"
+msgstr ""
+
+#. module: intervention_site
+#: help:generate.equipment.intervention,type_id:0
+msgid "Type of intervention"
 msgstr ""
 
 #. module: intervention_site

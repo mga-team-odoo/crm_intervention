@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 15:38+0000\n"
-"PO-Revision-Date: 2018-03-19 16:43+0200\n"
+"POT-Creation-Date: 2018-03-19 16:55+0000\n"
+"PO-Revision-Date: 2018-03-19 17:57+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: intervention_site
 #: field:res.partner,inter_location_id:0
 msgid "Intervention location"
-msgstr "Emplacmeent d'intervention"
+msgstr "Emplacement d'intervention"
 
 #. module: intervention_site
 #: field:intervention.equipment,last_int_date:0
@@ -373,6 +373,7 @@ msgid "Qty"
 msgstr "Qté"
 
 #. module: intervention_site
+#: field:generate.equipment.intervention,type_id:0
 #: field:intervention.equipment,type_id:0
 #: view:intervention.equipment.type:0
 msgid "Type"
@@ -996,7 +997,7 @@ msgstr "Date de dernière visite"
 #. module: intervention_site
 #: field:intervention.site,code:0
 msgid "Site Code"
-msgstr "COde du site"
+msgstr "Code du site"
 
 #. module: intervention_site
 #: field:intervention.equipment,invoicing_product_id:0
@@ -1066,6 +1067,11 @@ msgstr "Adresse"
 #: help:intervention.equipment.type,name:0
 msgid "Name of equipment type"
 msgstr "Nom du type d'équipement"
+
+#. module: intervention_site
+#: help:generate.equipment.intervention,type_id:0
+msgid "Type of intervention"
+msgstr "Type d'intervention"
 
 #. module: intervention_site
 #: help:generate.equipment.intervention,user_id:0
