@@ -13,6 +13,7 @@
                         <field name="name"/>
                         <field name="section_id" domain="[('use_inter','=', True)]"/>
                         <field name="user_id"/>
+                        <field name="type_id" widget="selection"/>
                         <field name="begin_date"/>
                     </group>
                     <footer>

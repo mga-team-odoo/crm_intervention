@@ -16,6 +16,9 @@ class GenerateIntervention(orm.TransientModel):
             'crm.case.section', 'Section', help='Select section'),
         'user_id': fields.many2one(
             'res.users', 'Repairer', help='Select repairer'),
+        'type_id': fields.many2one(
+            'crm.intervention.type', 'Type',
+            help='Type of intervention'),
     }
 
     def create_intervention(self, cr, uid, ids, context=None):
@@ -41,6 +44,7 @@ class GenerateIntervention(orm.TransientModel):
                 'duration_planned': 1.0,
                 'partner_id': part_id,
                 'equipment_id': eq.id,
+                'type_id': this.type_id and this.type_id.id or False,
             }
             if this.begin_date:
                 int_args['date_planned_end'] = inter_obj.onchange_planned_duration(
