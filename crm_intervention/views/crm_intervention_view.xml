@@ -32,6 +32,11 @@
             parent="base.menu_base_partner"
             sequence="3"/>
 
+        <menuitem id="menu_config_intervention" 
+            parent="base.menu_base_config"
+            sequence="30"
+            name="Interventions"/>
+
         <!--  Intervention Form View -->
 
         <record model="ir.ui.view" id="crm_case_form_view_intervention">
@@ -65,7 +70,7 @@
                         </div>
                         <group colspan="4" col="12" name="title_header">
                             <group colspan="4" col="2" name="part_column1">
-                                <field name="number_request" required="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="type_id" widget="selection"/>
                                 <field name="partner_id" on_change="onchange_partner_intervention_id(partner_id)" required="1" attrs="{'readonly':[('state','=','done')]}"
                                     context="{'show_address': 1}" options='{"always_reload": True}'/>
                             </group>
@@ -84,6 +89,7 @@
                             <page string="General">
                                 <group colspan="4" col="8">
                                     <group name="general_global">
+                                        <field name="number_request" required="1" string="Reference" colspan="1" attrs="{'readonly':[('state','!=','draft')]}"/>
                                         <field name="priority" string="Priority" attrs="{'readonly':[('state','=','done')]}"/>
                                     </group>
                                     <group name="general_contact">
@@ -262,11 +268,13 @@
                     <field name="section_id" string="Interventions Team">
                         <filter icon="terp-personal+" groups="base.group_extended" domain="[('section_id', '=', context.get('section_id'))]" />
                     </field>
+                    <field name="type_id"/>
                     <field name="date_planned_start" widget="date"/>
                     <newline/>
                     <group expand="0" string="Group By...">
                         <filter string="Partner" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
                         <filter string="Repairer" icon="terp-personal" domain="[]" help="Repairer affect on this intervention" context="{'group_by':'user_id'}"/>
+                        <filter string="Intervention type" domain="[]" help="Intervention type" context="{'group_by':'type_id'}"/>
                         <separator orientation="vertical"/>
                         <filter string="Priority" icon="terp-rating-rated" domain="[]" context="{'group_by':'priority'}"/>
                         <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
@@ -467,6 +475,109 @@
             sequence="2"
             name="Planning"
             action="action_intervention_planning_form"/>
+
+        <record id="view_intervention_type_tree" model="ir.ui.view">
+            <field name="name">crm.intervention.type.tree</field>
+            <field name="model">crm.intervention.type</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Type">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="product_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_intervention_type_form" model="ir.ui.view">
+            <field name="name">crm.intervention.type.form</field>
+            <field name="model">crm.intervention.type</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Type" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="product_id"/>
+                            </group>
+                            <group>
+                                <field name="color"/>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="General">
+                                <separator string="Notes" colspan="4"/>
+                                <field name="notes" colspan="4" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_intervention_type_search" model="ir.ui.view">
+            <field name="name">crm.intervention.type.search</field>
+            <field name="model">crm.intervention.type</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Type">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="product_id"/>
+                    <field name="company_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_intervention_type_view">
+            <field name="name">Intervention Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.intervention.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_intervention_type_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_intervention_type_view_form">
+            <field name="act_window_id" ref="act_open_intervention_type_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_intervention_type_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_intervention_type_view_tree">
+            <field name="act_window_id" ref="act_open_intervention_type_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_intervention_type_tree"/>
+        </record>
+
+        <menuitem id="menu_intervention_type"
+            parent="menu_config_intervention"
+            sequence="20"
+            action="act_open_intervention_type_view"/>
+
+        <record id="view_inter_site_mandatory_form" model="ir.ui.view">
+            <field name="name">crm.intervention.form - Type mandatory</field>
+            <field name="model">crm.intervention</field>
+            <field name="inherit_id" ref="crm_case_form_view_intervention"/>
+            <field name="groups_id" eval="[(4, ref('group_inter_type_mandatory'))]"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
 
     </data>
 </openerp>

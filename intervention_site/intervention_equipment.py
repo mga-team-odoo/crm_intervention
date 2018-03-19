@@ -78,6 +78,9 @@ class InterventionEquipment(orm.Model):
             'Last Intervention', help='Last intervention date'),
         'replace_date': fields.date(
             'Replacement', help='Date when this equipment must be replace'),
+        'last_date': fields.date(
+            'Last visit date',
+            help='Indicate the last visite date'),
         'next_date': fields.date(
             'Next visit date',
             help='Indicate the next visite date'),

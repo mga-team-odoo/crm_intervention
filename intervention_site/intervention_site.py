@@ -96,6 +96,23 @@ class InterventionSite(orm.Model):
             res.append((site.id, name))
         return res
 
+    def copy(self, cr, uid, s_id, default=None, context=None):
+        """
+        Prevent duplicate equipement
+        """
+        if context is None:
+            context = {}
+
+        default.update({
+            'code': '/',
+            'equipment_ids': [],
+            'last_date': False,
+            'next_date': False,
+            'notes': False,
+        })
+
+        return super(InterventionSite, self).copy(cr, uid, s_id, default, context=context)
+
     def create(self, cr, uid, values, context=None):
         """
         Generate site code

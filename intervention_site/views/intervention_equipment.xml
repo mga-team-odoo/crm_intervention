@@ -56,6 +56,7 @@
                                         <field name="eow_date"/>
                                         <field name="last_int_date"/>
                                         <field name="replace_date"/>
+                                        <field name="last_date"/>
                                         <field name="next_date"/>
                                         <field name="contract_id" domain="[('use_inter','=', True),('type','=','contract')]"/>
                                         <field name="out_of_contract"/>
@@ -152,6 +153,7 @@
                     <field name="partner_id"/>
                     <field name="type_id"/>
                     <filter string="Without site" name="filter_wo_site" domain="[('site_id','=',False)]"/>
+                    <filter string="Periodical invoicing" name="filter_w_invoincing" domain="[('invoicing_enabled','=',True)]"/>
                     <group  expand='0' string='Group by...'>
                         <filter string='Customer' domain="[]" context="{'group_by' : 'partner_id'}"/>
                         <filter string='Supplier' domain="[]" context="{'group_by' : 'supplier_id'}"/>
@@ -294,7 +296,7 @@
         </record>
 
         <menuitem id="menu_inter_equip_type"
-            parent="crm_intervention.menu_intersupport_main"
+            parent="crm_intervention.menu_config_intervention"
             sequence="45"
             groups="base.group_crm_intervention_manager"
             action="act_open_inter_equip_type_view"/>

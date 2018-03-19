@@ -136,6 +136,36 @@ class crm_case_section(orm.Model):
     }
 
 
+class intervention_type(orm.Model):
+    _name = 'crm.intervention.type'
+    _description = 'Intervention type'
+
+    _columns = {
+        'name': fields.char(
+            'Name', size=64, required=True,
+            help='Name of the intervention type'),
+        'code': fields.char(
+            'Code', size=16,
+            help='Code for this intervention type'),
+        'company_id': fields.many2one(
+            'res.company', 'Company'),
+        'color': fields.integer(
+            'Color', help='Color for Kanban view'),
+        'product_id': fields.many2one(
+            'product.product', 'product',
+            help='Product service to invoice'),
+        'notes': fields.text(
+            'Notes', help='Notes'),
+    }
+
+    _defaults = {
+        'color': 0,
+        'company_id': lambda s, cr, uid, c: s.pool.get(
+            'res.company')._company_default_get(
+                cr, uid, 'crm.intervention.type', context=c),
+    }
+
+
 class crm_intervention(base_state, base_stage, orm.Model):
     _name = 'crm.intervention'
     _description = 'Intervention'
@@ -283,6 +313,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
         'meeting_id': fields.many2one(
             'crm.meeting', 'Meeting',
             help='Intervention store in calendar'),
+        'type_id': fields.many2one(
+            'crm.intervention.type', 'Type',
+            help='Type of the intervention'),
     }
 
     _defaults = {
@@ -389,6 +422,16 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 if inter.meeting_id:
                     self._delete_calendar_event(cr, uid, inter.meeting_id.id, context=context)
         return res
+
+    def case_pending(self, cr,uid, ids, context=None):
+        """
+        Check if product defined on type_id
+        """
+        for inter in self.browse(cr, uid, ids, context=context):
+            if not inter.product_id and inter.type_id and inter.type_id.product_id:
+                inter.write({'product_id': inter.type_id.product_id.id})
+        return super(crm_intervention, self).case_pending(
+            cr, uid, ids, context=context)
 
     @staticmethod
     def _eval_timestamp(curdate):

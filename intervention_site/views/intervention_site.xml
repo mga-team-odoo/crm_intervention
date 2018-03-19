@@ -123,6 +123,8 @@
                     <separator/>
                     <filter string="Inspection in 15 days" domain="[('next_date','&gt;=', context_today()), ('next_date','&lt;=', (context_today()-datetime.timedelta(days=15)).strftime('%%Y-%%m-%%d'))]"
                         help="Inspection planned in next 15 days" context="{}"/>
+                    <filter string="Without contract" name="filter_wo_contract" domain="[('contract_id','=',False)]"/>
+                    <filter string="Without distance" name="filter_wo_distance" domain="[('distance_product_id','=',False)]"/>
                     <group expand="0" string="Group By...">
                         <filter string="Partner" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
                         <filter string="Customer" icon="terp-partner" domain="[]" help="Customer" context="{'group_by':'customer_id'}"/>
