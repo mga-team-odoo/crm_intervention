@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-13 21:01+0000\n"
-"PO-Revision-Date: 2018-03-13 21:01+0000\n"
+"POT-Creation-Date: 2018-03-19 15:38+0000\n"
+"PO-Revision-Date: 2018-03-19 15:38+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,11 @@ msgstr ""
 #. module: intervention_site
 #: help:intervention.equipment,contract_id:0
 msgid "Contract relate to this equipment"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "Without contract"
 msgstr ""
 
 #. module: intervention_site
@@ -415,7 +420,7 @@ msgid "Quantity of distance to invoice"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:270
+#: code:addons/intervention_site/intervention_equipment.py:273
 #, python-format
 msgid "Sequence Not Defined on the company!!"
 msgstr ""
@@ -426,7 +431,7 @@ msgid "Site to made this intervention"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:256
+#: code:addons/intervention_site/intervention_equipment.py:259
 #, python-format
 msgid "Recurring invoicing: \"%s\" at %s"
 msgstr ""
@@ -444,6 +449,11 @@ msgstr ""
 #. module: intervention_site
 #: help:crm.intervention,equipment_id:0
 msgid "Help note"
+msgstr ""
+
+#. module: intervention_site
+#: help:intervention.equipment,last_date:0
+msgid "Indicate the last visite date"
 msgstr ""
 
 #. module: intervention_site
@@ -512,13 +522,13 @@ msgid "by"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:285
+#: code:addons/intervention_site/intervention_equipment.py:288
 #, python-format
 msgid "You cannot delete equipemnt with history!!, please inactivate it"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:123
+#: code:addons/intervention_site/intervention_site.py:140
 #, python-format
 msgid "You cannot delete site with equipments!! Please inactivate it"
 msgstr ""
@@ -557,6 +567,11 @@ msgstr ""
 #. module: intervention_site
 #: view:intervention.equipment:0
 msgid "Group by..."
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "Periodical invoicing"
 msgstr ""
 
 #. module: intervention_site
@@ -675,6 +690,11 @@ msgstr ""
 #. module: intervention_site
 #: help:intervention.line,to_invoice:0
 msgid "If check , this lines must be invoiced"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "Without distance"
 msgstr ""
 
 #. module: intervention_site
@@ -797,14 +817,14 @@ msgstr ""
 #. module: intervention_site
 #: code:addons/intervention_site/intervention.py:182
 #: code:addons/intervention_site/intervention.py:198
-#: code:addons/intervention_site/intervention_equipment.py:284
-#: code:addons/intervention_site/intervention_site.py:122
+#: code:addons/intervention_site/intervention_equipment.py:287
+#: code:addons/intervention_site/intervention_site.py:139
 #, python-format
 msgid "Error"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:108
+#: code:addons/intervention_site/intervention_site.py:125
 #, python-format
 msgid "Sequence not defined on company"
 msgstr ""
@@ -954,9 +974,8 @@ msgid "Select type of the equipment"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:232
-#, python-format
-msgid "RI %s"
+#: field:intervention.equipment,last_date:0
+msgid "Last visit date"
 msgstr ""
 
 #. module: intervention_site
@@ -1042,6 +1061,12 @@ msgstr ""
 #: view:intervention.site:0
 #: field:intervention.site,customer_id:0
 msgid "Customer"
+msgstr ""
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:235
+#, python-format
+msgid "RI %s"
 msgstr ""
 
 #. module: intervention_site

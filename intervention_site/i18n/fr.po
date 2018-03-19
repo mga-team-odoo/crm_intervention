@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-13 21:01+0000\n"
-"PO-Revision-Date: 2018-03-13 22:05+0200\n"
+"POT-Creation-Date: 2018-03-19 15:38+0000\n"
+"PO-Revision-Date: 2018-03-19 16:43+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -37,6 +37,11 @@ msgstr "Historiques"
 #: help:intervention.equipment,contract_id:0
 msgid "Contract relate to this equipment"
 msgstr "Contrat lié à cet équipement"
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "Without contract"
+msgstr "Sans contrat"
 
 #. module: intervention_site
 #: field:intervention.equipment,num2:0
@@ -423,7 +428,7 @@ msgid "Quantity of distance to invoice"
 msgstr "Quantité du trajet à facturer"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:270
+#: code:addons/intervention_site/intervention_equipment.py:273
 #, python-format
 msgid "Sequence Not Defined on the company!!"
 msgstr "La séquence n'est pas définit sur la société!!"
@@ -434,7 +439,7 @@ msgid "Site to made this intervention"
 msgstr "Site ou cet intervention est effectué"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:256
+#: code:addons/intervention_site/intervention_equipment.py:259
 #, python-format
 msgid "Recurring invoicing: \"%s\" at %s"
 msgstr "Facturation périodique: \"%s\" à %s"
@@ -453,6 +458,11 @@ msgstr "Statut"
 #: help:crm.intervention,equipment_id:0
 msgid "Help note"
 msgstr "Note"
+
+#. module: intervention_site
+#: help:intervention.equipment,last_date:0
+msgid "Indicate the last visite date"
+msgstr "Indiquer la date de dernière visite"
 
 #. module: intervention_site
 #: help:intervention.equipment,user_id:0
@@ -520,7 +530,7 @@ msgid "by"
 msgstr "par"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:285
+#: code:addons/intervention_site/intervention_equipment.py:288
 #, python-format
 msgid "You cannot delete equipemnt with history!!, please inactivate it"
 msgstr ""
@@ -528,7 +538,7 @@ msgstr ""
 "l'inactiver"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:123
+#: code:addons/intervention_site/intervention_site.py:140
 #, python-format
 msgid "You cannot delete site with equipments!! Please inactivate it"
 msgstr ""
@@ -570,6 +580,11 @@ msgstr "Mois"
 #: view:intervention.equipment:0
 msgid "Group by..."
 msgstr "Grouper par..."
+
+#. module: intervention_site
+#: view:intervention.equipment:0
+msgid "Periodical invoicing"
+msgstr "Facturation périodique"
 
 #. module: intervention_site
 #: view:intervention.site:0
@@ -689,6 +704,11 @@ msgstr "Stock dédié du réparateur"
 #: help:intervention.line,to_invoice:0
 msgid "If check , this lines must be invoiced"
 msgstr "Si coché, ces lignes seront facturés"
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "Without distance"
+msgstr "Sans trajet"
 
 #. module: intervention_site
 #: help:intervention.equipment,next_date:0
@@ -811,14 +831,14 @@ msgstr "Hors contrat"
 #. module: intervention_site
 #: code:addons/intervention_site/intervention.py:182
 #: code:addons/intervention_site/intervention.py:198
-#: code:addons/intervention_site/intervention_equipment.py:284
-#: code:addons/intervention_site/intervention_site.py:122
+#: code:addons/intervention_site/intervention_equipment.py:287
+#: code:addons/intervention_site/intervention_site.py:139
 #, python-format
 msgid "Error"
 msgstr "Erreur"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:108
+#: code:addons/intervention_site/intervention_site.py:125
 #, python-format
 msgid "Sequence not defined on company"
 msgstr "La séquence n'est pas définit sur la société"
@@ -969,10 +989,9 @@ msgid "Select type of the equipment"
 msgstr "Sélectionner le type d'équipement"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:232
-#, python-format
-msgid "RI %s"
-msgstr "FP %s"
+#: field:intervention.equipment,last_date:0
+msgid "Last visit date"
+msgstr "Date de dernière visite"
 
 #. module: intervention_site
 #: field:intervention.site,code:0
@@ -1059,6 +1078,12 @@ msgstr "Sélectionner un technicien"
 #: field:intervention.site,customer_id:0
 msgid "Customer"
 msgstr "Client"
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:235
+#, python-format
+msgid "RI %s"
+msgstr "FP %s"
 
 #. module: intervention_site
 #: report:intervention_site.inter_report:0
