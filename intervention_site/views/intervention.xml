@@ -39,6 +39,9 @@
                 <xpath expr="//field[@name='user_id']" position="attributes">
                     <attribute name="on_change">onchange_user_id(user_id)</attribute>
                 </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="on_change">onchange_partner_intervention_id(partner_id, site_id)</attribute>
+                </xpath>
             </field>
         </record>
 

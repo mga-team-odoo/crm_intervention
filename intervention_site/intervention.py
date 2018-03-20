@@ -71,7 +71,7 @@ class CrmIntervention(orm.Model):
 
         return res
 
-    def onchange_partner_intervention_id(self, cr, uid, ids, part):
+    def onchange_partner_intervention_id(self, cr, uid, ids, part, site=None):
         """
         If one site on the customer, we fill it automatically
         """
@@ -88,6 +88,10 @@ class CrmIntervention(orm.Model):
                 'site_id': [],
                 'equipment_id': [],
             })
+        # If we have defined a site
+        # We keep the address on the site
+        if site:
+            del res['value']['partner_shipping_id']
 
         s_args = [
             ('partner_id', '=', res['value']['partner_order_id'])
