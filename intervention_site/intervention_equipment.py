@@ -65,7 +65,8 @@ class InterventionEquipment(orm.Model):
             help='Site where the equipment is visible'),
         'partner_id': fields.related(
             'site_id', 'partner_id', type='many2one', relation='res.partner',
-            string='Address', store=True, help='Address fill on the site'),
+            string='Address', store=True, readonly=True,
+            help='Address fill on the site'),
         'active': fields.boolean(
             'Active', help='if check, this object is always available'),
         'buy_date': fields.date(

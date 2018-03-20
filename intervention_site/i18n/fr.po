@@ -305,7 +305,7 @@ msgstr "Numéro de produit"
 #. module: intervention_site
 #: help:intervention.equipment,partner_id:0
 msgid "Address fill on the site"
-msgstr "Adresse rempli sur le site"
+msgstr "Adresse remplie sur le site"
 
 #. module: intervention_site
 #: field:generate.equipment.intervention,section_id:0
