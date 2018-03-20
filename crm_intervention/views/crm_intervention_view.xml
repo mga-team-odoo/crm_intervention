@@ -506,6 +506,7 @@
                                 <field name="product_id"/>
                             </group>
                             <group>
+                                <field name="active"/>
                                 <field name="color"/>
                                 <field name="company_id"/>
                             </group>

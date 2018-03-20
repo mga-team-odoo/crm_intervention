@@ -156,6 +156,8 @@ class intervention_type(orm.Model):
             help='Product service to invoice'),
         'notes': fields.text(
             'Notes', help='Notes'),
+        'active': fields.boolean(
+            'Active', help='if check, this object is always available'),
     }
 
     _defaults = {
@@ -163,6 +165,7 @@ class intervention_type(orm.Model):
         'company_id': lambda s, cr, uid, c: s.pool.get(
             'res.company')._company_default_get(
                 cr, uid, 'crm.intervention.type', context=c),
+        'active': True,
     }
 
 
