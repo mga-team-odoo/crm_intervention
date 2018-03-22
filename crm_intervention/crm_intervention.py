@@ -545,16 +545,6 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 'message': _('Please fill be start date!!')
             }
 
-        if duration_eff > 0.0 and pause_eff >= duration_eff:
-            warn = {
-                'title': _('Error'),
-                'message': _('The pause cannot be longer than total!!')
-            }
-            vals = {
-                'pause_effective': 0.0,
-                'duration_effective': 0.0,
-                'date_effective_end': False,
-            }
         if eff_str_date:
             start_date = datetime.datetime.fromtimestamp(time.mktime(
                 time.strptime(eff_str_date, "%Y-%m-%d %H:%M:%S")))
@@ -864,10 +854,6 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 raise orm.except_orm(_('Error'), _('Product to invoice is necessary'))  # noqa
             if not inter.contract_id:
                 raise orm.except_orm(_('Error'), _('Contract is necessary'))
-            if inter.product_id.standard_price < 0.1:
-                raise orm.except_orm(
-                    _('Error'),
-                    _('Please define a cost price for the product %s') % inter.product_id.name)  # noqa
 
             emp = self._get_employee(cr, uid, inter, context=context)
             if not inter.section_id:
@@ -875,19 +861,18 @@ class crm_intervention(base_state, base_stage, orm.Model):
                     _('Error'),
                     _('No section defined on this intervention!'))
 
+            sprice = inter.product_id.standard_price or 1.0
             if inter.alldays_effective:
                 q = self.pool['product.uom']._compute_price(
                     cr, uid, inter.product_id.uom_id.id,
-                    inter.product_id.standard_price,
-                    inter.section_id.unit_day_id.id)
+                    sprice, inter.section_id.unit_day_id.id)
                 amount = q * -1
                 unit_amount = 1.0
                 unit = inter.section_id.unit_day_id.id
             else:
                 q = self.pool['product.uom']._compute_price(
                     cr, uid, inter.product_id.uom_id.id,
-                    inter.product_id.standard_price,
-                    inter.section_id.unit_hour_id.id)
+                    sprice, inter.section_id.unit_hour_id.id)
                 amount = (q * inter.duration_effective) * -1
                 unit_amount = inter.duration_effective
                 unit = inter.section_id.unit_hour_id.id
