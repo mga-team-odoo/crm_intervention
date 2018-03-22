@@ -43,6 +43,7 @@
   !python {model: crm.intervention}: |
       inter = self.browse(cr, uid, ref('crm_intervention_test1'))
       inter.case_open()
+      inter.send_event_repairer()
 -
     Check the duration
 -

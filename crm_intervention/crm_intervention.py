@@ -41,7 +41,7 @@ CRM_INTERVENTION_STATES = (
     crm.AVAILABLE_STATES[4][0],  # Pending
 )
 
-html_invitation = """
+html_invitation = _("""
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -103,7 +103,7 @@ html_invitation = """
 </table>
 </body>
 </html>
-"""
+""")
 
 
 class res_partner(orm.Model):
@@ -570,6 +570,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
     def send_event_repairer(self, cr, uid, ids, context=None):
         """Send an email to the repairer"""
+        if context is None:
+            context = {}
         if len(ids) > 1:
             raise orm.except_orm(
                 _('Error'),
@@ -604,18 +606,28 @@ class crm_intervention(base_state, base_stage, orm.Model):
             event.add('location').value = addr
         ics_file = cal.serialize()
 
+        desc = inter.customer_information
+        if inter.intervention_todo:
+            desc += '<br/><hr/><br/>' + inter.intervention_todo
+
         body_vals = {
             'name': inter.name,
             'start_date': inter.date_planned_start,
             'end_date': inter.date_planned_end,
             'timezone': context.get('tz', pytz.timezone('UTC')),
-            'description': inter.customer_information or '-',
+            'description': desc or '-',
             'location': addr or '-',
             'user': usr.name,
         }
         body = html_invitation % body_vals
+        if usr.alias_id:
+            sender = "%s <%s@%s>" % (usr.name, usr.alias_id.alias_name,
+                                     usr.alias_id.alias_domain)
+        else:
+            sender = "%s <%s>" % (usr.name, usr.email)
+
         vals = {
-            'email_from': usr.email,
+            'email_from': sender,
             'email_to': inter.user_id.email,
             'state': 'outgoing',
             'subject': _('[INTERVENTION] %s') % inter.name,
@@ -628,6 +640,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 'datas_fname': 'intervention.ics',
                 'datas': str(ics_file).encode('base64')})]
         self.pool.get('mail.mail').create(cr, uid, vals, context=context)
+        log_body = _('Event send to %s by email') % usr.name
+        inter.message_post(body=log_body, type='comment')
         return True
 
     def action_email_send(self, cr, uid, ids, context=None):
