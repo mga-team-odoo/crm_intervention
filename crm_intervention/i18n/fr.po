@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 15:37+0000\n"
-"PO-Revision-Date: 2018-03-19 16:41+0200\n"
+"POT-Creation-Date: 2018-03-22 09:48+0000\n"
+"PO-Revision-Date: 2018-03-22 10:51+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:583
+#: code:addons/crm_intervention/crm_intervention.py:576
 #, python-format
 msgid "Send one mail per intervention"
 msgstr "Senvoyer un mail par intervention"
@@ -29,7 +29,7 @@ msgid "intervention Supports"
 msgstr "Interventions"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:819
+#: code:addons/crm_intervention/crm_intervention.py:822
 #, python-format
 msgid "This intervention already invoiced"
 msgstr "Cette intervention est déjà facturée"
@@ -71,12 +71,6 @@ msgstr "Aujourd'hui"
 #: model:crm.case.categ,name:crm_intervention.categ_inter2
 msgid "Happy"
 msgstr "Satisfait"
-
-#. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:548
-#, python-format
-msgid "The pause cannot be longer than total!!"
-msgstr "La pause ne peut pas être plus long que le temps total!!"
 
 #. module: crm_intervention
 #: field:crm.intervention,date_effective_start:0
@@ -123,7 +117,7 @@ msgstr ""
 "Intervention à contrôler avant de créer la ligne dans le compte analytique"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:542
+#: code:addons/crm_intervention/crm_intervention.py:545
 #, python-format
 msgid "Please fill be start date!!"
 msgstr "Veuillez remplir la date de début!!"
@@ -207,7 +201,7 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché les nouveaux messages requièrent votre attention."
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:863
+#: code:addons/crm_intervention/crm_intervention.py:866
 #, python-format
 msgid "Contract is necessary"
 msgstr "Le contract est nécéssaire"
@@ -278,7 +272,7 @@ msgid "All day effective"
 msgstr "Toute la journée (effectif)"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:411
+#: code:addons/crm_intervention/crm_intervention.py:414
 #, python-format
 msgid "Date effective start is required before to pending the intervention"
 msgstr ""
@@ -308,7 +302,7 @@ msgid "Indicate real time to do the intervention (w/o pause)."
 msgstr "Indiquer le temps réel de l'intervention (sans la pause)."
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:628
+#: code:addons/crm_intervention/crm_intervention.py:629
 #, python-format
 msgid "[INTERVENTION] %s"
 msgstr "[INTERVENTION] %s"
@@ -423,7 +417,7 @@ msgid "Reset to Draft"
 msgstr "Remettre en brouillon"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:873
+#: code:addons/crm_intervention/crm_intervention.py:872
 #, python-format
 msgid "No section defined on this intervention!"
 msgstr "Pas de section définit sur l'intervention!"
@@ -496,7 +490,7 @@ msgid "Description of intervention"
 msgstr "Description de l'intervention"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:859
+#: code:addons/crm_intervention/crm_intervention.py:862
 #, python-format
 msgid "This intervention already pre-invoiced"
 msgstr "Cette intervention à déjà été pré-facturée"
@@ -762,7 +756,7 @@ msgid "Select the dedicate repairer"
 msgstr "Sélectionner un technicien dédié"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:403
+#: code:addons/crm_intervention/crm_intervention.py:406
 #, python-format
 msgid "Date planned end is required before open the intervention"
 msgstr "Date de fin planifiée est avant d'ouvrir une intervention"
@@ -841,7 +835,7 @@ msgid "Meeting"
 msgstr "Rendez vous"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:828
+#: code:addons/crm_intervention/crm_intervention.py:831
 #, python-format
 msgid "GI %s"
 msgstr "GI %s"
@@ -891,6 +885,12 @@ msgstr "Tél."
 #: model:res.groups,comment:crm_intervention.group_inter_type_mandatory
 msgid "Type is mandatory on intervention"
 msgstr "Le type est obligatoire sur les interventions"
+
+#. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:639
+#, python-format
+msgid "Event send to %s by email"
+msgstr "Intervention envoyé par mail à %s"
 
 #. module: crm_intervention
 #: field:crm.intervention,message_is_follower:0
@@ -965,6 +965,7 @@ msgstr "Sommaire"
 
 #. module: crm_intervention
 #: field:crm.intervention,active:0
+#: field:crm.intervention.type,active:0
 msgid "Active"
 msgstr "Actif"
 
@@ -975,30 +976,28 @@ msgid "Out of contract"
 msgstr "Hors contrat"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:398
+#: code:addons/crm_intervention/crm_intervention.py:401
 #, python-format
 msgid "Date planned start is required before open the intervention"
 msgstr ""
 "La date de début planifiée est requise avant l'ouvertu du bon d'intervention"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:397
-#: code:addons/crm_intervention/crm_intervention.py:402
-#: code:addons/crm_intervention/crm_intervention.py:410
-#: code:addons/crm_intervention/crm_intervention.py:415
-#: code:addons/crm_intervention/crm_intervention.py:547
-#: code:addons/crm_intervention/crm_intervention.py:582
-#: code:addons/crm_intervention/crm_intervention.py:596
-#: code:addons/crm_intervention/crm_intervention.py:765
-#: code:addons/crm_intervention/crm_intervention.py:818
+#: code:addons/crm_intervention/crm_intervention.py:400
+#: code:addons/crm_intervention/crm_intervention.py:405
+#: code:addons/crm_intervention/crm_intervention.py:413
+#: code:addons/crm_intervention/crm_intervention.py:418
+#: code:addons/crm_intervention/crm_intervention.py:575
+#: code:addons/crm_intervention/crm_intervention.py:589
+#: code:addons/crm_intervention/crm_intervention.py:768
 #: code:addons/crm_intervention/crm_intervention.py:821
-#: code:addons/crm_intervention/crm_intervention.py:859
-#: code:addons/crm_intervention/crm_intervention.py:861
-#: code:addons/crm_intervention/crm_intervention.py:863
+#: code:addons/crm_intervention/crm_intervention.py:824
+#: code:addons/crm_intervention/crm_intervention.py:862
+#: code:addons/crm_intervention/crm_intervention.py:864
 #: code:addons/crm_intervention/crm_intervention.py:866
-#: code:addons/crm_intervention/crm_intervention.py:872
-#: code:addons/crm_intervention/crm_intervention.py:894
-#: code:addons/crm_intervention/crm_intervention.py:934
+#: code:addons/crm_intervention/crm_intervention.py:871
+#: code:addons/crm_intervention/crm_intervention.py:892
+#: code:addons/crm_intervention/crm_intervention.py:932
 #, python-format
 msgid "Error"
 msgstr "Erreur"
@@ -1009,14 +1008,14 @@ msgid "Indicate the date of end intervention planned"
 msgstr "Indicate the date of end intervention planned"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:822
-#: code:addons/crm_intervention/crm_intervention.py:861
+#: code:addons/crm_intervention/crm_intervention.py:825
+#: code:addons/crm_intervention/crm_intervention.py:864
 #, python-format
 msgid "Product to invoice is necessary"
 msgstr "Le produit à facturer est nécéssaire"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:935
+#: code:addons/crm_intervention/crm_intervention.py:933
 #, python-format
 msgid "Employee not found (uid: %s)"
 msgstr "Employé non trouvé (uid: %s)"
@@ -1106,7 +1105,7 @@ msgid "Open"
 msgstr "Ouvert"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:597
+#: code:addons/crm_intervention/crm_intervention.py:590
 #, python-format
 msgid "missing vobject library"
 msgstr "Biliotheque vobject manquante"
@@ -1118,7 +1117,7 @@ msgstr "Vérifie si ce contrat peut être une intervention"
 
 #. module: crm_intervention
 #: view:account.analytic.account:0
-#: code:addons/crm_intervention/crm_intervention.py:361
+#: code:addons/crm_intervention/crm_intervention.py:364
 #: view:crm.case.section:0
 #: view:crm.intervention:0
 #: model:crm.meeting.type,name:crm_intervention.metting_type_intervention
@@ -1140,7 +1139,7 @@ msgid "In Progress"
 msgstr "En cours"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:541
+#: code:addons/crm_intervention/crm_intervention.py:544
 #, python-format
 msgid "Warning"
 msgstr "Avertissement"
@@ -1161,6 +1160,136 @@ msgid "Responsible"
 msgstr "Responsable"
 
 #. module: crm_intervention
+#: code:addons/crm_intervention/crm_intervention.py:44
+#, python-format
+msgid "\n"
+"<html>\n"
+"<head>\n"
+"<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />\n"
+"<title>%(name)s</title>\n"
+"</head>\n"
+"<body>\n"
+"<table border=\"0\" cellspacing=\"10\" cellpadding=\"0\" width=\"100%%\"\n"
+"    style=\"font-family: Arial, Sans-serif; font-size: 14\">\n"
+"    <tr>\n"
+"        <td width=\"100%%\">Hello,</td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td width=\"100%%\">You are invited by <i>%(user)s</i></td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td width=\"100%%\">Below are the details of event. Hours and dates expressed in %(timezone)s time.</td>\n"
+"    </tr>\n"
+"</table>\n"
+"\n"
+"<table cellspacing=\"0\" cellpadding=\"5\" border=\"0\" summary=\"\"\n"
+"    style=\"width: 90%%; font-family: Arial, Sans-serif; border: 1px Solid #ccc; background-color: #f6f6f6\">\n"
+"    <tr valign=\"center\" align=\"center\">\n"
+"        <td bgcolor=\"DFDFDF\">\n"
+"        <h3>%(name)s</h3>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td>\n"
+"        <table cellpadding=\"8\" cellspacing=\"0\" border=\"0\"\n"
+"            style=\"font-size: 14\" summary=\"Eventdetails\" bgcolor=\"f6f6f6\"\n"
+"            width=\"90%%\">\n"
+"            <tr>\n"
+"                <td width=\"21%%\">\n"
+"                <div><b>Start Date</b></div>\n"
+"                </td>\n"
+"                <td><b>:</b></td>\n"
+"                <td>%(start_date)s</td>\n"
+"                <td width=\"15%%\">\n"
+"                <div><b>End Date</b></div>\n"
+"                </td>\n"
+"                <td><b>:</b></td>\n"
+"                <td width=\"25%%\">%(end_date)s</td>\n"
+"            </tr>\n"
+"            <tr valign=\"top\">\n"
+"                <td><b>Description</b></td>\n"
+"                <td><b>:</b></td>\n"
+"                <td colspan=\"3\">%(description)s</td>\n"
+"            </tr>\n"
+"            <tr valign=\"top\">\n"
+"                <td>\n"
+"                <div><b>Location</b></div>\n"
+"                </td>\n"
+"                <td><b>:</b></td>\n"
+"                <td colspan=\"3\">%(location)s</td>\n"
+"            </tr>\n"
+"        </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</table>\n"
+"</body>\n"
+"</html>\n"
+""
+msgstr "\n"
+"<html>\n"
+"<head>\n"
+"<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />\n"
+"<title>%(name)s</title>\n"
+"</head>\n"
+"<body>\n"
+"<table border=\"0\" cellspacing=\"10\" cellpadding=\"0\" width=\"100%%\"\n"
+"    style=\"font-family: Arial, Sans-serif; font-size: 14\">\n"
+"    <tr>\n"
+"        <td width=\"100%%\">Bonjour,</td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td width=\"100%%\">Vous avez été invité par <i>%(user)s</i></td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td width=\"100%%\">Ci dessous les détails de l'intervention, les dates et heures sont exprimés au fuseau horaire %(timezone)s</td>\n"
+"    </tr>\n"
+"</table>\n"
+"\n"
+"<table cellspacing=\"0\" cellpadding=\"5\" border=\"0\" summary=\"\"\n"
+"    style=\"width: 90%%; font-family: Arial, Sans-serif; border: 1px Solid "
+"#ccc; background-color: #f6f6f6\">\n"
+"    <tr valign=\"center\" align=\"center\">\n"
+"        <td bgcolor=\"DFDFDF\">\n"
+"        <h3>%(name)s</h3>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <tr>\n"
+"        <td>\n"
+"        <table cellpadding=\"8\" cellspacing=\"0\" border=\"0\"\n"
+"            style=\"font-size: 14\" summary=\"Eventdetails\" bgcolor=\"f6f6f6\"\n"
+"            width=\"90%%\">\n"
+"            <tr>\n"
+"                <td width=\"21%%\">\n"
+"                <div><b>Date de début</b></div>\n"
+"                </td>\n"
+"                <td><b>:</b></td>\n"
+"                <td>%(start_date)s</td>\n"
+"                <td width=\"15%%\">\n"
+"                <div><b>Date de fin</b></div>\n"
+"                </td>\n"
+"                <td><b>:</b></td>\n"
+"                <td width=\"25%%\">%(end_date)s</td>\n"
+"            </tr>\n"
+"            <tr valign=\"top\">\n"
+"                <td><b>Descriptif</b></td>\n"
+"                <td><b>:</b></td>\n"
+"                <td colspan=\"3\">%(description)s</td>\n"
+"            </tr>\n"
+"            <tr valign=\"top\">\n"
+"                <td>\n"
+"                <div><b>Adresse</b></div>\n"
+"                </td>\n"
+"                <td><b>:</b></td>\n"
+"                <td colspan=\"3\">%(location)s</td>\n"
+"            </tr>\n"
+"        </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</table>\n"
+"</body>\n"
+"</html>"
+
+#. module: crm_intervention
 #: model:ir.module.category,name:crm_intervention.category_intervention_opts
 msgid "Intervention options"
 msgstr "Options de l'intervention"
@@ -1176,7 +1305,7 @@ msgid "Effective duration"
 msgstr "Durée réalisée"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:898
+#: code:addons/crm_intervention/crm_intervention.py:896
 #, python-format
 msgid "BI Num %s"
 msgstr "BI N° %s"
@@ -1208,7 +1337,7 @@ msgid "Invoice Unit"
 msgstr "Unité de facturation"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:766
+#: code:addons/crm_intervention/crm_intervention.py:769
 #, python-format
 msgid "%s is necessary to make invoice"
 msgstr "%s est nécessaire pour générer une facture"
@@ -1244,7 +1373,7 @@ msgstr ""
 "Si pas de contrat, le bouton de facture génèrera une facture"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:895
+#: code:addons/crm_intervention/crm_intervention.py:893
 #, python-format
 msgid "Not journal defined on teh employee!!"
 msgstr "Pas de journal définit sur l'employé!!"
@@ -1254,6 +1383,11 @@ msgstr "Pas de journal définit sur l'employé!!"
 #: report:crm_intervention.inter_ticket:0
 msgid "Tel. :"
 msgstr "Tél. :"
+
+#. module: crm_intervention
+#: help:crm.intervention.type,active:0
+msgid "if check, this object is always available"
+msgstr "Si coché cet enregistrement est toujours disponible"
 
 #. module: crm_intervention
 #: view:account.analytic.account:0
@@ -1352,7 +1486,7 @@ msgid "Invoicing"
 msgstr "Facturation"
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:416
+#: code:addons/crm_intervention/crm_intervention.py:419
 #, python-format
 msgid "Date effective end or all days is required before to pending the intervention"
 msgstr ""
@@ -1410,12 +1544,6 @@ msgid "End of the intervention : _____ h _____ min."
 msgstr "Fin d'intervention à : _____ h _____ min."
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:867
-#, python-format
-msgid "Please define a cost price for the product %s"
-msgstr "Veuillez définir un coût pour le produit %s"
-
-#. module: crm_intervention
 #: report:crm_intervention.inter_report:0
 #: report:crm_intervention.inter_ticket:0
 msgid "Mobile :"
@@ -1425,6 +1553,14 @@ msgstr "Portable :"
 #: help:crm.intervention,alldays_effective:0
 msgid "All-day intervention effective"
 msgstr "Toute la journée effectuée"
+
+#, python-format
+#~ msgid "The pause cannot be longer than total!!"
+#~ msgstr "La pause ne peut pas être plus long que le temps total!!"
+
+#, python-format
+#~ msgid "Please define a cost price for the product %s"
+#~ msgstr "Veuillez définir un coût pour le produit %s"
 
 #~ msgid "\n"
 #~ "<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
