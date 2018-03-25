@@ -607,8 +607,10 @@ class crm_intervention(base_state, base_stage, orm.Model):
         ics_file = cal.serialize()
 
         desc = inter.customer_information
-        if inter.intervention_todo:
+        if inter.intervention_todo and desc:
             desc += '<br/><hr/><br/>' + inter.intervention_todo
+        else:
+            desc = inter.intervention_todo
 
         body_vals = {
             'name': inter.name,
