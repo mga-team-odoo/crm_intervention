@@ -61,8 +61,9 @@
                                     <button string="New Intervention" icon="gtk-ok"
                                         type="object" name="create_intervention"/>
                                 </group>
-                                <field name="equipment_ids" nolabel="1" colspan="4">
+                                <field name="equipment_ids" nolabel="1" colspan="4" widget="many2many">
                                     <tree string="Equipment">
+                                        <field name="code"/>
                                         <field name="name"/>
                                         <field name="type_id"/>
                                         <field name="serial_number"/>
@@ -71,6 +72,7 @@
                                         <field name="next_date"/>
                                         <field name="contract_id"/>
                                         <field name="out_of_contract"/>
+                                        <field name="invoicing_enabled" string="Periodic invoicing"/>
                                     </tree>
                                 </field>
                             </page>

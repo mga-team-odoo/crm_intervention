@@ -612,6 +612,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
         else:
             desc = inter.intervention_todo
 
+        desc = desc and desc.replace('\n', '<br/>') or ''
+
         body_vals = {
             'name': inter.name,
             'start_date': inter.date_planned_start,

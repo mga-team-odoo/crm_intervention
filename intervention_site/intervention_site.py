@@ -109,6 +109,7 @@ class InterventionSite(orm.Model):
             'last_date': False,
             'next_date': False,
             'notes': False,
+            'active': True,
         })
 
         return super(InterventionSite, self).copy(cr, uid, s_id, default, context=context)
