@@ -386,6 +386,11 @@ msgstr ""
 
 #. module: crm_intervention
 #: report:crm_intervention.inter_ticket:0
+msgid "Customer :"
+msgstr ""
+
+#. module: crm_intervention
+#: report:crm_intervention.inter_ticket:0
 msgid "for"
 msgstr ""
 

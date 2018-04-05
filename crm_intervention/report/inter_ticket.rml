@@ -60,21 +60,7 @@
         <blockTable colWidths="265.0,51.0,225.0" style="Table1">
             <tr>
                 <td>
-                    <para style="terp_default_Bold_9">Shipping address :</para>
-                    <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
-                    <para style="terp_default_9">[[ o.partner_id.id == o.partner_shipping_id.id and removeParentNode('para') ]] [[ o.partner_shipping_id.title and o.partner_shipping_id.title.shortcut or '' ]] [[ o.partner_shipping_id.name ]]</para>
-                    <para style="terp_default_9">[[ o.partner_shipping_id.street ]]</para>
-                    <para style="terp_default_9">[[ o.partner_shipping_id.street2 or '' ]]</para>
-                    <para style="terp_default_9">[[ o.partner_shipping_id.city or '' ]] [[ o.partner_shipping_id.zip or '' ]]</para>
-                    <para style="terp_default_9">[[ o.partner_shipping_id.state_id and o.partner_shipping_id.state_id.name or '' ]] [[ o.partner_shipping_id.country_id and o.partner_shipping_id.country_id.name or '' ]]</para>
-                    <spacer length="7"/>
-                    <para style="terp_default_Bold_9">Invoice address :</para>
-                    <para style="terp_default_9">[[ o.partner_invoice_id.street ]] [[ o.partner_invoice_id.street2 and (', %s' % o.partner_invoice_id.street2 or '') ]]</para>
-                    <para style="terp_default_9">[[ o.partner_invoice_id.zip or '' ]] [[ o.partner_invoice_id.city or '' ]] [[ o.partner_invoice_id.country_id and (', %s' % (o.partner_invoice_id.country_id and o.partner_invoice_id.country_id.name or '')) ]]</para>
-                </td>
-                <td>
-                </td>
-                <td>
+                    <para style="terp_default_Bold_9">Customer :</para>
                     <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_id.id == o.partner_shipping_id.id and removeParentNode('para') ]] [[ o.partner_order_id.title and o.partner_order_id.title.shortcut or '' ]] [[ o.partner_order_id.name ]]</para>
                     <para style="terp_default_9">[[ o.partner_order_id.street ]]</para>
@@ -85,6 +71,20 @@
                     <para style="terp_default_9">Tel. : [[ o.partner_address_phone or removeParentNode('para') ]]</para>
                     <para style="terp_default_9">Mobile : [[ o.partner_address_mobile or removeParentNode('para') ]]</para>
                     <para style="terp_default_9">Mail : [[ o.email_from or removeParentNode('para') ]]</para>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <para style="terp_default_Bold_9">Shipping address :</para>
+                    <para style="terp_default_9">[[ o.partner_id.title and o.partner_id.title.shortcut or '' ]] [[ o.partner_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_id.id == o.partner_shipping_id.id and removeParentNode('para') ]] [[ o.partner_shipping_id.title and o.partner_shipping_id.title.shortcut or '' ]] [[ o.partner_shipping_id.name ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.street ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.street2 or '' ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.city or '' ]] [[ o.partner_shipping_id.zip or '' ]]</para>
+                    <para style="terp_default_9">[[ o.partner_shipping_id.state_id and o.partner_shipping_id.state_id.name or '' ]] [[ o.partner_shipping_id.country_id and o.partner_shipping_id.country_id.name or '' ]]</para>
+                    <para style="terp_default_9">Tel. : [[ o.partner_shipping_id.phone or removeParentNode('para') ]]</para>
+                    <para style="terp_default_9">Mobile : [[ o.partner_shipping_id.mobile or removeParentNode('para') ]]</para>
+                    <para style="terp_default_9">Mail : [[ o.partner_shipping_id.email or removeParentNode('para') ]]</para>
                 </td>
             </tr>
         </blockTable>
