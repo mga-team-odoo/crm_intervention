@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-19 16:55+0000\n"
-"PO-Revision-Date: 2018-03-19 17:57+0200\n"
+"POT-Creation-Date: 2018-04-16 08:53+0000\n"
+"PO-Revision-Date: 2018-04-16 10:56+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -212,7 +212,7 @@ msgid "Group By..."
 msgstr "Grouper par..."
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:183
+#: code:addons/intervention_site/intervention.py:187
 #, python-format
 msgid "Missing location to made output movement"
 msgstr "Emplacement manquant pour faire la sortie de stock"
@@ -403,7 +403,7 @@ msgid "Shipping address :"
 msgstr "Adresse de livraison :"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:199
+#: code:addons/intervention_site/intervention.py:203
 #, python-format
 msgid "Lot is necessary for product \"%s\""
 msgstr "Le lot est necessaire pour ce produit \"%s\""
@@ -429,7 +429,7 @@ msgid "Quantity of distance to invoice"
 msgstr "Quantité du trajet à facturer"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:273
+#: code:addons/intervention_site/intervention_equipment.py:292
 #, python-format
 msgid "Sequence Not Defined on the company!!"
 msgstr "La séquence n'est pas définit sur la société!!"
@@ -440,7 +440,12 @@ msgid "Site to made this intervention"
 msgstr "Site ou cet intervention est effectué"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:259
+#: view:crm.intervention:0
+msgid "onchange_user_id(user_id)"
+msgstr "onchange_user_id(user_id)"
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:278
 #, python-format
 msgid "Recurring invoicing: \"%s\" at %s"
 msgstr "Facturation périodique: \"%s\" à %s"
@@ -531,7 +536,7 @@ msgid "by"
 msgstr "par"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:288
+#: code:addons/intervention_site/intervention_equipment.py:307
 #, python-format
 msgid "You cannot delete equipemnt with history!!, please inactivate it"
 msgstr ""
@@ -539,7 +544,7 @@ msgstr ""
 "l'inactiver"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:140
+#: code:addons/intervention_site/intervention_site.py:159
 #, python-format
 msgid "You cannot delete site with equipments!! Please inactivate it"
 msgstr ""
@@ -743,9 +748,9 @@ msgid "New Intervention"
 msgstr "Nouvelle intervention"
 
 #. module: intervention_site
-#: view:crm.intervention:0
-msgid "onchange_user_id(user_id)"
-msgstr "onchange_user_id(user_id)"
+#: view:intervention.site:0
+msgid "Without repairer"
+msgstr "Sans technicien"
 
 #. module: intervention_site
 #: field:intervention.equipment,dat2:0
@@ -781,6 +786,11 @@ msgstr "A Facturer"
 #: help:intervention.site,next_date:0
 msgid "Date to the next inspection"
 msgstr "Date de la prochaine visite"
+
+#. module: intervention_site
+#: view:crm.intervention:0
+msgid "onchange_partner_intervention_id(partner_id, site_id)"
+msgstr ""
 
 #. module: intervention_site
 #: field:intervention.equipment,next_date:0
@@ -830,16 +840,16 @@ msgid "Out of contract"
 msgstr "Hors contrat"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:182
-#: code:addons/intervention_site/intervention.py:198
-#: code:addons/intervention_site/intervention_equipment.py:287
-#: code:addons/intervention_site/intervention_site.py:139
+#: code:addons/intervention_site/intervention.py:186
+#: code:addons/intervention_site/intervention.py:202
+#: code:addons/intervention_site/intervention_equipment.py:306
+#: code:addons/intervention_site/intervention_site.py:158
 #, python-format
 msgid "Error"
 msgstr "Erreur"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:125
+#: code:addons/intervention_site/intervention_site.py:144
 #, python-format
 msgid "Sequence not defined on company"
 msgstr "La séquence n'est pas définit sur la société"
@@ -979,7 +989,7 @@ msgid "Buying date"
 msgstr "Date d'achat"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:271
+#: code:addons/intervention_site/intervention.py:275
 #, python-format
 msgid "BI Num %s"
 msgstr "BI Num %s"
@@ -1086,7 +1096,7 @@ msgid "Customer"
 msgstr "Client"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:235
+#: code:addons/intervention_site/intervention_equipment.py:254
 #, python-format
 msgid "RI %s"
 msgstr "FP %s"
@@ -1165,6 +1175,11 @@ msgstr "Nombre de mois entre chaque facturation"
 #: field:intervention.equipment.history,summary:0
 msgid "Summary"
 msgstr "Résumé"
+
+#. module: intervention_site
+#: view:intervention.site:0
+msgid "Periodic invoicing"
+msgstr "Facturation périodique"
 
 #. module: intervention_site
 #: view:intervention.equipment:0

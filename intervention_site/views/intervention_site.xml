@@ -127,6 +127,7 @@
                         help="Inspection planned in next 15 days" context="{}"/>
                     <filter string="Without contract" name="filter_wo_contract" domain="[('contract_id','=',False)]"/>
                     <filter string="Without distance" name="filter_wo_distance" domain="[('distance_product_id','=',False)]"/>
+                    <filter string="Without repairer" name="filter_wo_repairer" domain="[('user_id','=',False)]"/>
                     <group expand="0" string="Group By...">
                         <filter string="Partner" icon="terp-partner" domain="[]" help="Partner" context="{'group_by':'partner_id'}"/>
                         <filter string="Customer" icon="terp-partner" domain="[]" help="Customer" context="{'group_by':'customer_id'}"/>

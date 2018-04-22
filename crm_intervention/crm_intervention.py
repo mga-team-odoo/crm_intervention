@@ -41,70 +41,6 @@ CRM_INTERVENTION_STATES = (
     crm.AVAILABLE_STATES[4][0],  # Pending
 )
 
-html_invitation = _("""
-<html>
-<head>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<title>%(name)s</title>
-</head>
-<body>
-<table border="0" cellspacing="10" cellpadding="0" width="100%%"
-    style="font-family: Arial, Sans-serif; font-size: 14">
-    <tr>
-        <td width="100%%">Hello,</td>
-    </tr>
-    <tr>
-        <td width="100%%">You are invited by <i>%(user)s</i></td>
-    </tr>
-    <tr>
-        <td width="100%%">Below are the details of event. Hours and dates expressed in %(timezone)s time.</td>
-    </tr>
-</table>
-
-<table cellspacing="0" cellpadding="5" border="0" summary=""
-    style="width: 90%%; font-family: Arial, Sans-serif; border: 1px Solid #ccc; background-color: #f6f6f6">
-    <tr valign="center" align="center">
-        <td bgcolor="DFDFDF">
-        <h3>%(name)s</h3>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        <table cellpadding="8" cellspacing="0" border="0"
-            style="font-size: 14" summary="Eventdetails" bgcolor="f6f6f6"
-            width="90%%">
-            <tr>
-                <td width="21%%">
-                <div><b>Start Date</b></div>
-                </td>
-                <td><b>:</b></td>
-                <td>%(start_date)s</td>
-                <td width="15%%">
-                <div><b>End Date</b></div>
-                </td>
-                <td><b>:</b></td>
-                <td width="25%%">%(end_date)s</td>
-            </tr>
-            <tr valign="top">
-                <td><b>Description</b></td>
-                <td><b>:</b></td>
-                <td colspan="3">%(description)s</td>
-            </tr>
-            <tr valign="top">
-                <td>
-                <div><b>Location</b></div>
-                </td>
-                <td><b>:</b></td>
-                <td colspan="3">%(location)s</td>
-            </tr>
-        </table>
-        </td>
-    </tr>
-</table>
-</body>
-</html>
-""")
-
 
 class res_partner(orm.Model):
     """
@@ -426,7 +362,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
                     self._delete_calendar_event(cr, uid, inter.meeting_id.id, context=context)
         return res
 
-    def case_pending(self, cr,uid, ids, context=None):
+    def case_pending(self, cr, uid, ids, context=None):
         """
         Check if product defined on type_id
         """
@@ -532,7 +468,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
             'duration_planned': (float(difference.days * 24) +
                                  float(hours) + float(minutes) / float(60))}}
 
-    def onchange_effective_values(self, cr, uid, ids, eff_str_date,
+    def onchange_effective_values(
+            self, cr, uid, ids, eff_str_date,
             duration_eff, pause_eff, eff_end_date, fld=''):
         """
         Compute effective date
@@ -561,27 +498,23 @@ class crm_intervention(base_state, base_stage, orm.Model):
                     float(hours) + float(minutes) / float(60)) - pause_eff
             }
         if fld in ('duration', 'pause') and eff_str_date:
-            total_duration =  (duration_eff or 0.0) + (pause_eff or 0.0)
+            total_duration = (duration_eff or 0.0) + (pause_eff or 0.0)
             vals = {
                 'date_effective_end': (start_date + datetime.timedelta(
                     hours=total_duration)).strftime('%Y-%m-%d %H:%M:00')
             }
         return {'warning': warn, 'value': vals}
 
-    def send_event_repairer(self, cr, uid, ids, context=None):
-        """Send an email to the repairer"""
-        if context is None:
-            context = {}
-        if len(ids) > 1:
-            raise orm.except_orm(
-                _('Error'),
-                _('Send one mail per intervention'))
-
+    def prepare_calendar_event(self, cr, uid, ids, context=None):
+        """
+        Create an ICS event
+        """
+        assert len(ids) == 1, 'This option should only be used for a single id at a time.'  # noqa
         inter = self.browse(cr, uid, ids[0], context=context)
 
         def ics_datetime(idate, short=False):
             if idate:
-                #returns the datetime as UTC, because it is stored as it in the database
+                # returns the datetime as UTC, because it is stored as it in the database
                 return datetime.datetime.strptime(idate, '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.timezone('UTC'))
             return False
         try:
@@ -591,72 +524,71 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 _('Error'),
                 _('missing vobject library'))
 
-        usr = self.pool['res.users'].browse(cr, uid, uid, context=context)
+        # usr = self.pool['res.users'].browse(cr, uid, uid, context=context)
         cal = vobject.iCalendar()
         event = cal.add('vevent')
         event.add('created').value = ics_datetime(time.strftime('%Y-%m-%d %H:%M:%S'))
         event.add('dtstart').value = ics_datetime(inter.date_planned_start)
         event.add('dtend').value = ics_datetime(inter.date_planned_end)
         event.add('summary').value = inter.name
-        if  inter.customer_information:
+        if inter.customer_information:
             event.add('description').value = inter.customer_information
         if inter.partner_shipping_id:
             addr = self.pool['res.partner']._display_address(
                 cr, uid, inter.partner_shipping_id, context=context)
             event.add('location').value = addr
         ics_file = cal.serialize()
+        return ics_file
 
-        desc = inter.customer_information
-        if inter.intervention_todo and desc:
-            desc += '<br/><hr/><br/>' + inter.intervention_todo
-        else:
-            desc = inter.intervention_todo
-
-        desc = desc and desc.replace('\n', '<br/>') or ''
-
-        body_vals = {
-            'name': inter.name,
-            'start_date': inter.date_planned_start,
-            'end_date': inter.date_planned_end,
-            'timezone': context.get('tz', pytz.timezone('UTC')),
-            'description': desc or '-',
-            'location': addr or '-',
-            'user': usr.name,
-        }
-        body = html_invitation % body_vals
-        if usr.alias_id:
-            sender = "%s <%s@%s>" % (usr.name, usr.alias_id.alias_name,
-                                     usr.alias_id.alias_domain)
-        else:
-            sender = "%s <%s>" % (usr.name, usr.email)
-
-        vals = {
-            'email_from': sender,
-            'email_to': inter.user_id.email,
-            'state': 'outgoing',
-            'subject': _('[INTERVENTION] %s') % inter.name,
-            'body_html': body,
-            'auto_delete': True
-        }
-        if ics_file:
-            vals['attachment_ids'] = [(0,0,{
-                'name': 'intervention.ics',
-                'datas_fname': 'intervention.ics',
-                'datas': str(ics_file).encode('base64')})]
-        self.pool.get('mail.mail').create(cr, uid, vals, context=context)
-        log_body = _('Event send to %s by email') % usr.name
-        inter.message_post(body=log_body, type='comment')
-        return True
-
-    def action_email_send(self, cr, uid, ids, context=None):
+    def get_info_as_html(self, cr, uid, ids, context=None):
         """
-        Send email from the form
+        Fix to text in email containt \n
+        """
+        assert len(ids) == 1, 'This option should only be used for a single id at a time.'  # noqa
+        inter = self.browse(cr, uid, ids[0], context=context)
+        res= ''
+        if inter.customer_information:
+            res += '\n' + inter.customer_information
+        if inter.intervention_todo:
+            res += '\n\n' + inter.intervention_todo
+        return res.replace('\n', '<br/>')
+
+    def get_address(self, cr, uid, ids, context=None):
+        """
+        Fix to text in email containt \n
+        """
+        assert len(ids) == 1, 'This option should only be used for a single id at a time.'  # noqa
+        inter = self.browse(cr, uid, ids[0], context=context)
+        res = inter.partner_shipping_id.name_get(context={'show_address': True})[0][1]
+        return res.replace('\n', '<br/>')
+
+    def send_event_repairer(self, cr, uid, ids, context=None):
+        """
+        Send an email to the repairer
+        With information
+        """
+        if context is None:
+            context = {}
+        if len(ids) > 1:
+            raise orm.except_orm(
+                _('Error'),
+                _('Send one mail per intervention'))
+
+        res = self.prepare_action_email(
+            cr, uid, ids, 'crm_intervention.email_template_repairer',
+            context=context)
+        return res
+
+    def prepare_action_email(self, cr, uid, ids, xmlid=None, context=None):
+        """
+        Prepare an action send an email with the selected template
         """
         assert len(ids) == 1, 'This option should only be used for a single id at a time.'  # noqa
         ir_model_data = self.pool.get('ir.model.data')
         try:
+            module, model = xmlid.split('.')
             template_id = ir_model_data.get_object_reference(
-                cr, uid, 'crm_intervention', 'email_template_intervention')[1]
+                cr, uid, module, model)[1]
         except ValueError:
             template_id = False
 
@@ -685,6 +617,15 @@ class crm_intervention(base_state, base_stage, orm.Model):
             'target': 'new',
             'context': ctx,
         }
+
+    def action_email_send(self, cr, uid, ids, context=None):
+        """
+        Send email from the form
+        """
+        res = self.prepare_action_email(
+            cr, uid, ids, 'crm_intervention.email_template_intervention',
+            context=context)
+        return res
 
     def message_new(self, cr, uid, msg, custom_values=None, context=None):
         """ Override to updates the document according to the email. """
@@ -781,7 +722,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
         for inter in self.browse(cr, uid, ids, context=context):
             self._required_field(inter=inter, fields=[
-                'product_id','invoice_qty', 'invoice_uom_id'])
+                'product_id', 'invoice_qty', 'invoice_uom_id'])
 
             self.generate_analytic_line(
                 cr, uid, [inter.id], context=context)
@@ -820,7 +761,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
         Generate a direct invoice
         """
         inv_obj = self.pool['account.invoice']
-        line_obj = self.pool['account.invoice.line']
+        # line_obj = self.pool['account.invoice.line']
         for inter in self.browse(cr, uid, ids, context=context):
             if not inter.out_of_contract and inter.contract_id:
                 continue

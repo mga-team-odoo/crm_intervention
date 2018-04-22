@@ -194,6 +194,24 @@ class InterventionEquipment(orm.Model):
             res.append((equip.id, name))
         return res
 
+    def name_search(self, cr, uid, name, args=None, operator='ilike',
+                    context=None, limit=80):
+        """
+        We can search by code and/or name
+        """
+        if args is None:
+            args=[]
+        if context is None:
+            context = {}
+        ids = []
+        if name:
+            ids = self.search(cr, uid, [('code', '=', name)] + args, limit=limit)
+        if not ids:
+            ids = self.search(cr, uid, [('code', 'ilike', name)] + args, limit=limit)
+        if not ids:
+            ids = self.search(cr, uid, [('name', operator, name)] + args, limit=limit)
+        return self.name_get(cr, uid, ids, context=context)
+
     def cron_invoices(self, cr, uid, ids=None, context=None):
         """
         Cron must check only contract to compute

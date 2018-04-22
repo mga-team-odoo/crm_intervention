@@ -39,10 +39,10 @@
     'data': [
         'security/crm_security.xml',
         'security/ir.model.access.csv',
-        'edi/mail_template.xml',
         'views/crm_intervention_view.xml',
         'data/crm_intervention_data.xml',
         'report/crm_intervention_view.xml',
+        'edi/mail_template.xml',
     ],
     'demo': [
         'demo/intervention.xml',

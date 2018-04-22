@@ -260,6 +260,10 @@
                     <filter string="To be invoiced" domain="[('invoice_id','=', False)]" help="Filter intervention to be invoiced"/>
                     <filter string="To review" domain="[('contract_id','!=', False),('analytic_line_id','=',False)]"
                         help="Intervention to review before create line on the contract"/> 
+                    <filter string="In progress" domain="[('state','in', ('open','pending'))]"
+                        help="Intervention in progress"/> 
+                    <filter string="My Intervention In progress" domain="[('state','in', ('open','pending')), ('user_id','=',uid)]"
+                        help="My Intervention in progress"/> 
                     <separator orientation="vertical"/>
                     <field name="name" string=""/>
                     <field name="partner_id"/>

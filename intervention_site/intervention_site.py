@@ -96,6 +96,24 @@ class InterventionSite(orm.Model):
             res.append((site.id, name))
         return res
 
+    def name_search(self, cr, uid, name, args=None, operator='ilike',
+                    context=None, limit=80):
+        """
+        We can search by code and/or name
+        """
+        if args is None:
+            args=[]
+        if context is None:
+            context = {}
+        ids = []
+        if name:
+            ids = self.search(cr, uid, [('code', '=', name)] + args, limit=limit)
+        if not ids:
+            ids = self.search(cr, uid, [('code', 'ilike', name)] + args, limit=limit)
+        if not ids:
+            ids = self.search(cr, uid, [('name', operator, name)] + args, limit=limit)
+        return self.name_get(cr, uid, ids, context=context)
+
     def copy(self, cr, uid, s_id, default=None, context=None):
         """
         Prevent duplicate equipement
@@ -156,6 +174,7 @@ class InterventionSite(orm.Model):
                 'date_planned_start': time.strftime('%Y-%m-%d %H:%M:00'),
                 'duration_planned': 1.0,
                 'partner_id': part_id,
+                'site_id': site.id,
                 'equipment_id': False,
             }
             int_args['date_planned_end'] = inter_obj.onchange_planned_duration(
