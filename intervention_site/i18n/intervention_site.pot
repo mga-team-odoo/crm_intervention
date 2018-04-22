@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 08:53+0000\n"
-"PO-Revision-Date: 2018-04-16 08:53+0000\n"
+"POT-Creation-Date: 2018-04-22 15:52+0000\n"
+"PO-Revision-Date: 2018-04-22 15:52+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -106,6 +106,11 @@ msgid "Company"
 msgstr ""
 
 #. module: intervention_site
+#: help:intervention.equipment,invoicing_product_id:0
+msgid "Product to invoice"
+msgstr ""
+
+#. module: intervention_site
 #: view:intervention.site:0
 msgid "Distance product only invoicing if address is not the same as company address"
 msgstr ""
@@ -188,6 +193,12 @@ msgid "Notes"
 msgstr ""
 
 #. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:314
+#, python-format
+msgid "Error!"
+msgstr ""
+
+#. module: intervention_site
 #: help:intervention.equipment,invoicing_journal_id:0
 msgid "Journal to group this element to invoice"
 msgstr ""
@@ -246,6 +257,12 @@ msgstr ""
 #. module: intervention_site
 #: help:intervention.equipment,history_ids:0
 msgid "Histories for this equipment"
+msgstr ""
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:315
+#, python-format
+msgid "Please define sales journal for this company: \"%s\" (id:%d)."
 msgstr ""
 
 #. module: intervention_site
@@ -421,7 +438,7 @@ msgid "Quantity of distance to invoice"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:292
+#: code:addons/intervention_site/intervention_equipment.py:388
 #, python-format
 msgid "Sequence Not Defined on the company!!"
 msgstr ""
@@ -437,7 +454,7 @@ msgid "onchange_user_id(user_id)"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:278
+#: code:addons/intervention_site/intervention_equipment.py:301
 #, python-format
 msgid "Recurring invoicing: \"%s\" at %s"
 msgstr ""
@@ -528,7 +545,7 @@ msgid "by"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:307
+#: code:addons/intervention_site/intervention_equipment.py:403
 #, python-format
 msgid "You cannot delete equipemnt with history!!, please inactivate it"
 msgstr ""
@@ -633,8 +650,8 @@ msgid "Create Output"
 msgstr ""
 
 #. module: intervention_site
-#: help:intervention.equipment,invoicing_product_id:0
-msgid "Product to invoice"
+#: field:intervention.site,city:0
+msgid "City"
 msgstr ""
 
 #. module: intervention_site
@@ -828,7 +845,7 @@ msgstr ""
 #. module: intervention_site
 #: code:addons/intervention_site/intervention.py:186
 #: code:addons/intervention_site/intervention.py:202
-#: code:addons/intervention_site/intervention_equipment.py:306
+#: code:addons/intervention_site/intervention_equipment.py:402
 #: code:addons/intervention_site/intervention_site.py:158
 #, python-format
 msgid "Error"
@@ -860,6 +877,12 @@ msgstr ""
 #: view:account.analytic.account:0
 #: field:account.analytic.account,inter_ids:0
 msgid "Interventions"
+msgstr ""
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:319
+#, python-format
+msgid "recurring invoicing: %s"
 msgstr ""
 
 #. module: intervention_site
@@ -934,8 +957,9 @@ msgid "Intervention"
 msgstr ""
 
 #. module: intervention_site
-#: field:intervention.site,city:0
-msgid "City"
+#: code:addons/intervention_site/intervention_equipment.py:225
+#, python-format
+msgid "%s (Copy)"
 msgstr ""
 
 #. module: intervention_site
@@ -971,6 +995,12 @@ msgstr ""
 #. module: intervention_site
 #: field:intervention.equipment,buy_date:0
 msgid "Buying date"
+msgstr ""
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:228
+#, python-format
+msgid "Duplicate from [%s] %s"
 msgstr ""
 
 #. module: intervention_site
@@ -1080,7 +1110,7 @@ msgid "Customer"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:254
+#: code:addons/intervention_site/intervention_equipment.py:274
 #, python-format
 msgid "RI %s"
 msgstr ""

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 08:53+0000\n"
-"PO-Revision-Date: 2018-04-16 10:56+0200\n"
+"POT-Creation-Date: 2018-04-22 15:52+0000\n"
+"PO-Revision-Date: 2018-04-22 17:55+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -108,6 +108,11 @@ msgid "Company"
 msgstr "Société"
 
 #. module: intervention_site
+#: help:intervention.equipment,invoicing_product_id:0
+msgid "Product to invoice"
+msgstr "Produit à facturer"
+
+#. module: intervention_site
 #: view:intervention.site:0
 msgid "Distance product only invoicing if address is not the same as company address"
 msgstr ""
@@ -192,6 +197,12 @@ msgid "Notes"
 msgstr "Notes"
 
 #. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:314
+#, python-format
+msgid "Error!"
+msgstr "Erreur !"
+
+#. module: intervention_site
 #: help:intervention.equipment,invoicing_journal_id:0
 msgid "Journal to group this element to invoice"
 msgstr "Journal pour grouper les élements à facturer"
@@ -252,6 +263,12 @@ msgstr "Numéro de produit de cet équipement P/N"
 #: help:intervention.equipment,history_ids:0
 msgid "Histories for this equipment"
 msgstr "Historiques pour cet équipement"
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:315
+#, python-format
+msgid "Please define sales journal for this company: \"%s\" (id:%d)."
+msgstr "Veuillez définir un journal de vente pour cette société: \"%s\" (id:%d)."
 
 #. module: intervention_site
 #: help:intervention.equipment,free1:0
@@ -429,7 +446,7 @@ msgid "Quantity of distance to invoice"
 msgstr "Quantité du trajet à facturer"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:292
+#: code:addons/intervention_site/intervention_equipment.py:388
 #, python-format
 msgid "Sequence Not Defined on the company!!"
 msgstr "La séquence n'est pas définit sur la société!!"
@@ -445,7 +462,7 @@ msgid "onchange_user_id(user_id)"
 msgstr "onchange_user_id(user_id)"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:278
+#: code:addons/intervention_site/intervention_equipment.py:301
 #, python-format
 msgid "Recurring invoicing: \"%s\" at %s"
 msgstr "Facturation périodique: \"%s\" à %s"
@@ -536,7 +553,7 @@ msgid "by"
 msgstr "par"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:307
+#: code:addons/intervention_site/intervention_equipment.py:403
 #, python-format
 msgid "You cannot delete equipemnt with history!!, please inactivate it"
 msgstr ""
@@ -646,9 +663,9 @@ msgid "Create Output"
 msgstr "Sortie de stock"
 
 #. module: intervention_site
-#: help:intervention.equipment,invoicing_product_id:0
-msgid "Product to invoice"
-msgstr "Produit à facturer"
+#: field:intervention.site,city:0
+msgid "City"
+msgstr "Ville"
 
 #. module: intervention_site
 #: report:intervention_site.inter_report:0
@@ -790,7 +807,7 @@ msgstr "Date de la prochaine visite"
 #. module: intervention_site
 #: view:crm.intervention:0
 msgid "onchange_partner_intervention_id(partner_id, site_id)"
-msgstr ""
+msgstr "onchange_partner_intervention_id(partner_id, site_id)"
 
 #. module: intervention_site
 #: field:intervention.equipment,next_date:0
@@ -842,7 +859,7 @@ msgstr "Hors contrat"
 #. module: intervention_site
 #: code:addons/intervention_site/intervention.py:186
 #: code:addons/intervention_site/intervention.py:202
-#: code:addons/intervention_site/intervention_equipment.py:306
+#: code:addons/intervention_site/intervention_equipment.py:402
 #: code:addons/intervention_site/intervention_site.py:158
 #, python-format
 msgid "Error"
@@ -875,6 +892,12 @@ msgstr "Déc 1"
 #: field:account.analytic.account,inter_ids:0
 msgid "Interventions"
 msgstr "Interventions"
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:319
+#, python-format
+msgid "recurring invoicing: %s"
+msgstr "Facturation périodique: %s"
 
 #. module: intervention_site
 #: code:addons/intervention_site/intervention_equipment.py:18
@@ -949,9 +972,10 @@ msgid "Intervention"
 msgstr "Intervention"
 
 #. module: intervention_site
-#: field:intervention.site,city:0
-msgid "City"
-msgstr "Ville"
+#: code:addons/intervention_site/intervention_equipment.py:225
+#, python-format
+msgid "%s (Copy)"
+msgstr "%s (Copie)"
 
 #. module: intervention_site
 #: field:intervention.equipment,replace_date:0
@@ -987,6 +1011,12 @@ msgstr "Fin de garantie"
 #: field:intervention.equipment,buy_date:0
 msgid "Buying date"
 msgstr "Date d'achat"
+
+#. module: intervention_site
+#: code:addons/intervention_site/intervention_equipment.py:228
+#, python-format
+msgid "Duplicate from [%s] %s"
+msgstr "Dupliquer depuis [%s] %s"
 
 #. module: intervention_site
 #: code:addons/intervention_site/intervention.py:275
@@ -1096,7 +1126,7 @@ msgid "Customer"
 msgstr "Client"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:254
+#: code:addons/intervention_site/intervention_equipment.py:274
 #, python-format
 msgid "RI %s"
 msgstr "FP %s"

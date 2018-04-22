@@ -212,6 +212,24 @@ class InterventionEquipment(orm.Model):
             ids = self.search(cr, uid, [('name', operator, name)] + args, limit=limit)
         return self.name_get(cr, uid, ids, context=context)
 
+    def copy(self, cr, uid, e_id, default=None, context=None):
+        """
+        Duplicate equipement
+        """
+        if context is None:
+            context = {}
+
+        equip = self.browse(cr, uid, e_id, context=context)
+
+        default.update({
+            'name': _('%s (Copy)') % equip.name,
+            'code': '/',
+            'active': True,
+            'notes': _('Duplicate from [%s] %s') % (equip.code, equip.name),
+            'invoicing_enabled': False,
+        })
+        return super(InterventionEquipment, self).copy(cr, uid, e_id, default, context=context)
+
     def cron_invoices(self, cr, uid, ids=None, context=None):
         """
         Cron must check only contract to compute
@@ -237,6 +255,8 @@ class InterventionEquipment(orm.Model):
         """
         cur_date = time.strftime('%Y-%m-%d')
         al_obj = self.pool['account.analytic.line']
+        contract_to_invoice = []
+        lines_to_invoices = []
         for e in self.browse(cr, uid, ids, context=context):
             # Check if equipment have invoicing enabled
             if not e.invoicing_enabled:
@@ -266,6 +286,9 @@ class InterventionEquipment(orm.Model):
                 }
                 line_id = al_obj.create(
                     cr, uid, vals,  context=context)
+                # Add this contract to the list
+                lines_to_invoices.append(line_id)
+                contract_to_invoice.append(e.invoicing_contract_id.id)
 
                 # Compute the next date to invoice and store it on the equipement
                 val_month = e.invoicing_period or 1
@@ -278,6 +301,84 @@ class InterventionEquipment(orm.Model):
                 body = _('Recurring invoicing: "%s" at %s') % (e.name, cur_date)
                 e.invoicing_contract_id.message_post(
                     body=body, context=context)
+
+        # For each contact, we invoice each line related
+        inv_obj = self.pool['account.invoice']
+        acc_obj = self.pool['account.analytic.account']
+        for ctr_id in set(contract_to_invoice):
+            ctr = acc_obj.browse(cr, uid, ctr_id, context=context)
+            journal_ids = self.pool.get('account.journal').search(cr, uid,
+                [('type', '=', 'sale'), ('company_id', '=', ctr.company_id.id)],
+                limit=1)
+            if not journal_ids:
+                raise orm.except_orm(_('Error!'),
+                    _('Please define sales journal for this company: "%s" (id:%d).') %
+                                     (ctr.company_id.name, ctr.company_id.id))
+            inv_data = {
+                'name': ctr.name or '',
+                'origin': _('recurring invoicing: %s') % ctr.name,
+                'type': 'out_invoice',
+                'reference': ctr.name,
+                'account_id': ctr.partner_id.property_account_receivable.id,
+                'partner_id': ctr.partner_id.id,
+                'journal_id': journal_ids[0],
+                'invoice_line': [],
+                'currency_id': ctr.pricelist_id.currency_id.id,
+                'comment': ctr.description or False,
+                'payment_term': ctr.partner_id.property_payment_term and ctr.partner_id.property_payment_term.id or False,
+                'fiscal_position': ctr.partner_id.property_account_position and ctr.partner_id.property_account_position.id or False,
+                'date_invoice': False,
+                'company_id': ctr.company_id.id,
+                'state': 'draft',
+            }
+
+            al_args = [
+                ('account_id', '=', ctr_id),
+                ('id', 'in', lines_to_invoices),
+                ('invoice_id', '=', False),
+            ]
+            al_ids = al_obj.search(cr, uid, al_args, context=context)
+            sequence = 1
+            for line in al_obj.browse(cr, uid, al_ids, context=context):
+                # We retrieve the first date on equipement line
+                if not inv_data['date_invoice']:
+                    inv_data['date_invoice'] = line.date
+                # We compute the price from teh pricelist on contract
+                # Because no priclist take in account from the invoice directly
+                pricelist = ctr.pricelist_id.id
+                product = line.product_id.id
+                price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist],
+                    product, line.unit_amount or 1.0, ctr.partner_id.id, {
+                        'uom': line.product_uom_id.id,
+                        'date': line.date,
+                        })[pricelist]
+                account = line.general_account_id.id or False
+                if not account:
+                    account = line.product_id.property_account_income.id or False
+                if not account:
+                    account = line.product_id.categ_id.property_account_income_categ.id
+                line_data = {
+                    'name': line.name,
+                    'sequence': sequence,
+                    'origin': line.ref,
+                    'account_id': account,
+                    'price_unit': price,
+                    'quantity': line.unit_amount,
+                    'discount': 0.0,
+                    'uos_id': line.product_uom_id.id,
+                    'product_id': product or False,
+                    'invoice_line_tax_id': [(6, 0, [x.id for x in line.product_id.taxes_id])],
+                    'account_analytic_id': line.account_id.id,
+                }
+                sequence += 1
+                inv_data['invoice_line'].append((0, 0, line_data))
+
+            inv_id = inv_obj.create(cr, uid, inv_data, context=context)
+            # We must update each line in contract with this invoice
+            cr.execute("""
+                UPDATE account_analytic_line
+                   SET invoice_id=%s
+                 WHERE id IN %s""", (inv_id, tuple(al_ids)))
         return True
 
     def create(self, cr, uid, values, context=None):
