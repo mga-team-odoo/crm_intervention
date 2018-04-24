@@ -4,6 +4,7 @@
 #    crm_intervention module for OpenERP, Managing intervention in CRM
 #    Copyright (C) 2011 SYLEAM Info Services (<http://www.Syleam.fr/>)
 #              Sebastien LANGE <sebastien.lange@syleam.fr>
+#    Copyright (C) 2014-2018 Christophe CHAUVET.
 #
 #    This file is a part of crm_intervention
 #
@@ -21,5 +22,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+import intervention_to_invoice
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

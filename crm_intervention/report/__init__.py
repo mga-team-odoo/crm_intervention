@@ -21,5 +21,6 @@
 
 import inter_ticket
 import inter_report
+import contract_to_invoice
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

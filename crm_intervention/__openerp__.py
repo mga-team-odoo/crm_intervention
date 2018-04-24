@@ -41,7 +41,9 @@
         'security/ir.model.access.csv',
         'views/crm_intervention_view.xml',
         'data/crm_intervention_data.xml',
+        'wizard/intervention_to_invoice_view.xml',
         'report/crm_intervention_view.xml',
+        'report/contract_to_invoice_view.xml',
         'edi/mail_template.xml',
     ],
     'demo': [

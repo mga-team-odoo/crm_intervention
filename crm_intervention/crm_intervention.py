@@ -731,8 +731,9 @@ class crm_intervention(base_state, base_stage, orm.Model):
         return True
 
     def _compute_pricelist(self, cr, uid, partner, product, quantity,
-                            date_price=None, context=None):
+                           date_price=None, context=None):
         """
+        We use pricelist to compute the price to invoice on the customer
         """
         if date_price is None:
             date_price = time.strftime('%Y-%m-%d')
@@ -936,6 +937,49 @@ class crm_intervention(base_state, base_stage, orm.Model):
             inv_ids.append(inter.analytic_line_id.invoice_id.id)
         return inv_ids
 
+    def check_inter_to_invoice(self, cr, uid, ids, context=None):
+        """
+        Check if all intervention is in waiting
+        """
+        res = ''
+        ck = False
+        for inter in self.browse(cr, uid, ids, context=context):
+            if inter.state not in ('pending', 'done'):
+                ck = True
+                res += '\n[%s] %s' % (inter.number_request, inter.name)
+
+        if ck:
+            raise orm.except_orm(
+                _('Error'),
+                _('Please check these intervention %s') % res
+            )
+
+    def _get_analytic_lines(self, cr, uid, inter, context=None):
+        """
+        IF contract we retrieve analytic line generate
+        """
+        res = []
+        if inter.contract_id and inter.analytic_line_id:
+            res.append(inter.analytic_line_id.id)
+        return res
+
+    def generate_invoices(self, cr, uid, ids, context=None):
+        """
+        """
+        contract_to_invoices = []
+        analytic_lines = []
+        for inter in self.browse(cr, uid, ids, context=context):
+            # First we simulate click on button invoicing
+            if inter.state == 'pending':
+                self.prepare_invoice(cr, uid, ids, context=None)
+            if inter.contract_id:
+                contract_to_invoices.append(inter.contract_id.id)
+
+            analytic_lines += self._get_analytic_lines(cr, uid, inter, context=context)
+
+
+        return True
+
     def list_invoices(self, cr, uid, ids, context=None):
         """
         Retrieve all invoices relates to theses interventions
@@ -957,8 +1001,13 @@ class crm_intervention(base_state, base_stage, orm.Model):
         r_id = result and result[1] or False
         result = act_obj.read(cr, uid, [r_id], context=context)[0]
         result['domain'] = "[('id','in', [" + ','.join(map(str, inv_ids)) + "])]"
-        # del result['context']
-        # result['context'] = context or {}
+        del result['context']
+        result['context'] = {
+            'type': 'out_invoice',
+            'journal_type': 'sale',
+            'form_view_ref': 'account.invoice_form',
+            'tree_view_ref': 'account.invoice_tree',
+        }
         return result
 
     def open_intervention(self, cr, uid, int_ids, context=None):

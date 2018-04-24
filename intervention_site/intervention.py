@@ -296,6 +296,23 @@ class CrmIntervention(orm.Model):
 
         return res
 
+    def _get_analytic_lines(self, cr, uid, inter, context=None):
+        """
+        We retrieve all analytic lines from lines
+        """
+        res = super(CrmIntervention, self)._get_analytic_lines(
+            cr, uid, inter, context=context)
+        if not inter.contract_id:
+            return res
+
+        for line in inter.line_ids:
+            if line.out_of_contract:
+                continue
+            if line.analytic_line_id:
+                res.append(line.analytic_line_id.id)
+
+        return res
+
     def copy(self, cr, uid, id, default=None, context=None):
         """
         """

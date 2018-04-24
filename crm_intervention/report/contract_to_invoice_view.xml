@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_report_contract_invoice_tree" model="ir.ui.view">
+            <field name="name">report.contract.invoice.tree</field>
+            <field name="model">report.contract.invoice</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Line to invoice">
+                    <field name="contract_id"/>
+                    <field name="partner_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="reference"/>
+                    <field name="real_date"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                    <field name="user_id"/>
+                    <field name="manager_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_report_contract_invoice_form" model="ir.ui.view">
+            <field name="name">report.contract.invoice.form</field>
+            <field name="model">report.contract.invoice</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Line to invoice">
+                    <field name="contract_id"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_report_contract_invoice_search" model="ir.ui.view">
+            <field name="name">report.contract.invoice.search</field>
+            <field name="model">report.contract.invoice</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Line to invoice">
+                    <field name="contract_id"/>
+                    <field name="partner_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="product_id"/>
+                    <field name="manager_id"/>
+                    <field name="reference"/>
+                    <filter name="no_pricelist" string="Without pricelist" domain="[('pricelist_id','=',False)]"
+                        help="Check contract with no pricelist" />
+                    <group expand="0" string="Group By...">
+                        <filter string="Contract" domain="" context="{'group_by':'contract_id'}"/>
+                        <filter string="Partner" domain="" context="{'group_by':'partner_id'}"/>
+                        <filter string="Product" domain="" context="{'group_by':'product_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_report_contract_invoice_view">
+            <field name="name">Contract to invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.contract.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_report_contract_invoice_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_report_contract_invoice_view_form">
+            <field name="act_window_id" ref="act_open_report_contract_invoice_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_report_contract_invoice_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_report_contract_invoice_view_tree">
+            <field name="act_window_id" ref="act_open_report_contract_invoice_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_report_contract_invoice_tree"/>
+        </record>
+
+        <menuitem id="menu_report_contract_invoice"
+            parent="menu_intersupport_main"
+            groups="base.group_crm_intervention_manager" 
+            sequence="80"
+            action="act_open_report_contract_invoice_view"/>
+
+    </data>
+</openerp>

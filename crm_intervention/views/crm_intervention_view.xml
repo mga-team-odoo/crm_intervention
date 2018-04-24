@@ -138,7 +138,8 @@
                                     <group colspan="4" col="2">
                                         <field domain="[('parent_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"
                                             context="{'show_address': 1}" options='{"always_reload": True}'/>
-                                        <field name="invoice_id" attrs="{'readonly': [('contract_id','!=', False)]}"/>
+                                        <field name="invoice_id" attrs="{'readonly': [('contract_id','!=', False)]}" 
+                                            context="{'form_view_ref': 'account.invoice_form'}"/>
                                     </group>
                                     <group colspan="4" col="2">
                                         <field name="contract_id" domain="[('type','=','contract'),('partner_id', '=', partner_id), ('use_inter','=',True)]"/>
