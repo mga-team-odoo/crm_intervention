@@ -374,6 +374,7 @@ class InterventionEquipment(orm.Model):
                 inv_data['invoice_line'].append((0, 0, line_data))
 
             inv_id = inv_obj.create(cr, uid, inv_data, context=context)
+            inv_obj.button_reset_taxes(cr, uid, [inv_id], context=context)
             # We must update each line in contract with this invoice
             cr.execute("""
                 UPDATE account_analytic_line
