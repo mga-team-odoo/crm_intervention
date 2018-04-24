@@ -730,6 +730,32 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 cr, uid, [inter.id], context=context)
         return True
 
+    def _compute_pricelist(self, cr, uid, partner, product, quantity,
+                            date_price=None, context=None):
+        """
+        """
+        if date_price is None:
+            date_price = time.strftime('%Y-%m-%d')
+
+        pricelist = partner.property_product_pricelist
+        new_price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist.id],
+            product.id, quantity or 1.0, partner.id, {
+                'uom': product.uom_id.id,
+                'date': date_price,
+                })[pricelist.id]
+
+        result = {
+            'price_unit': new_price,
+            'discount': 0.0
+        }
+        return result
+
+    def _compose_origin(self, cr, uid, inter, context=None):
+        """
+        Compose the origin field for invoice line
+        """
+        return inter.name
+
     def _prepare_invoice_line(self, cr, uid, inter, lines, inv, context=None):
         """
         Hook to add more than one line in the invoice
@@ -740,9 +766,15 @@ class crm_intervention(base_state, base_stage, orm.Model):
             'product_id': inter.product_id.id,
             'quantity': inter.invoice_qty,
         }
+        # We use pricelist on partner
+        partner = inter.partner_invoice_id
+        if not partner.property_product_pricelist:
+            raise orm.except_orm(
+                _('Error'),
+                _('Pricelist must be defined on invoiced partner'))
         line.update(line_obj.product_id_change(
             cr, uid, [], inter.product_id.id, inter.product_id.uom_id.id,
-            qty=line['quantity'], partner_id=inter.partner_invoice_id.id,
+            qty=line['quantity'], partner_id=partner.id,
             fposition_id=inv['fiscal_position'], context=context,
             company_id=inter.company_id and inter.company_id.id or
             False)['value']
@@ -753,6 +785,10 @@ class crm_intervention(base_state, base_stage, orm.Model):
         ]
         line['name'] = inter.name + '\n' + inter.user_id.name + '\n' \
             + inter.number_request + '\n' + line['name']
+        line.update(self._compute_pricelist(
+            cr, uid, partner, inter.product_id, inter.invoice_qty,
+            context=context))  # add price_unit and discount
+        line['origin'] = self._compose_origin(cr, uid, inter, context=context)
         lines.append(line)
         return lines
 
@@ -882,6 +918,48 @@ class crm_intervention(base_state, base_stage, orm.Model):
                 _('Employee not found (uid: %s)' % uid)
             )
         return emp_obj.browse(cr, uid, emp_ids[0], context=context)
+
+    def invoice_wizard(self, cr, uid, ids, context=None):
+        """
+        Function use by wizard to invoice intervention per group
+        """
+        return self.open_invoices(cr, uid, [], context=context)
+
+    def _current_invoices(self, cr, uid, inter, context=None):
+        """
+        Retrieve the invoice on the intervention
+        """
+        inv_ids = []
+        if inter.invoice_id:
+            inv_ids.append(inter.invoice_id.id)
+        if inter.analytic_line_id and inter.analytic_line_id.invoice_id:
+            inv_ids.append(inter.analytic_line_id.invoice_id.id)
+        return inv_ids
+
+    def list_invoices(self, cr, uid, ids, context=None):
+        """
+        Retrieve all invoices relates to theses interventions
+        """
+        res = []
+        for inter in self.browse(cr, uid, ids, context=context):
+            res += self._current_invoices(cr, uid, inter, context=context)
+
+        return res
+
+    def open_invoices(self, cr, uid, inv_ids, context=None):
+        """
+        Pass list of invoices to open after the generation
+        """
+        mod_obj = self.pool['ir.model.data']
+        act_obj = self.pool['ir.actions.act_window']
+
+        result = mod_obj.get_object_reference(cr, uid, 'account', 'action_invoice_tree1')
+        r_id = result and result[1] or False
+        result = act_obj.read(cr, uid, [r_id], context=context)[0]
+        result['domain'] = "[('id','in', [" + ','.join(map(str, inv_ids)) + "])]"
+        # del result['context']
+        # result['context'] = context or {}
+        return result
 
     def open_intervention(self, cr, uid, int_ids, context=None):
         """Open the tree or form view of intervention"""

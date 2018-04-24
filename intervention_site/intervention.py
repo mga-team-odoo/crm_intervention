@@ -216,6 +216,7 @@ class CrmIntervention(orm.Model):
         res = super(CrmIntervention, self)._prepare_invoice_line(cr, uid, inter, lines, inv, context=context)
         line_obj = self.pool['account.invoice.line']
         ctr_id = inter.contract_id and inter.contract_id.id or False
+        partner = inter.partner_invoice_id
         for l in inter.line_ids:
             if ctr_id and not l.out_of_contract:
                 # if contract and not out of contract
@@ -240,6 +241,9 @@ class CrmIntervention(orm.Model):
             line['invoice_line_tax_id'] = [
                 (6, 0, line['invoice_line_tax_id'])
             ]
+            line.update(self._compute_pricelist(
+                cr, uid, partner, l.product_id, l.product_qty,
+                context=context))  # add price_unit and discount
             if not l.to_invoice:
                 line['discount'] = 100.0
             res.append(line)
