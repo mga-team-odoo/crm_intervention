@@ -92,6 +92,9 @@ class CrmIntervention(orm.Model):
         # We keep the address on the site
         if site:
             del res['value']['partner_shipping_id']
+            if 'domain' not in res:
+                res['domain'] = {}
+            res['domain']['equipment_id'] = "[('site_id','=', %s)]" % site
 
         s_args = [
             ('partner_id', '=', res['value']['partner_order_id'])
