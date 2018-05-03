@@ -23,7 +23,8 @@
                             <field name="product_uom_id"/>
                             <field name="to_invoice" groups="base.group_crm_intervention_manager"/>
                             <field name="out_of_contract" groups="base.group_crm_intervention_manager"/>
-                            <field name="prodlot_id" groups="stock.group_production_lot"/>
+                            <field name="prodlot_id" domain="[('product_id','=', product_id)]" 
+                                groups="stock.group_production_lot"/>
                             <field name="move_id" readonly="1"/>
                             <field name="src_location_id"/>
                             <field name="analytic_line_id" groups="base.group_crm_intervention_manager"/>

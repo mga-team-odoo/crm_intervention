@@ -167,22 +167,32 @@ class InterventionSite(orm.Model):
         for site in self.browse(cr, uid, ids, context=context):
             part_id = site.customer_id and site.customer_id.id or False
             part_vals = inter_obj.onchange_partner_intervention_id(cr, uid, [], part_id)
-            int_args = {
+            int_args = part_vals['value']
+            int_args.update({
                 'name': site.name,
                 'section_id': site.section_id and site.section_id.id or False,
-                'user_id': site.user_id and site.user_id.id or False,
+                'user_id': site.user_id and site.user_id.id or uid,
                 'date_planned_start': time.strftime('%Y-%m-%d %H:%M:00'),
                 'duration_planned': 1.0,
                 'partner_id': part_id,
                 'site_id': site.id,
                 'equipment_id': False,
-            }
+                'partner_shipping_id': site.partner_id and site.partner_id.id or part_id,
+                'intervention_todo': site.notes or False,
+            })
+            if site.contract_id:
+                int_args.update({
+                    'contract_id': site.contract_id.id,
+                    'partner_invoice_id': site.partner_id and site.partner_id.id or part_id,
+                })
+            else:
+                int_args.update({
+                    'contract_id': False,
+                    'partner_invoice_id': part_id,
+                })
             int_args['date_planned_end'] = inter_obj.onchange_planned_duration(
                 cr, uid, [], 1.0, int_args['date_planned_start']
             )['value']['date_planned_end']
-            if site.partner_id:
-                int_args['partner_shipping_id'] = site.partner_id.id
-            int_args.update(part_vals['value'])
             int_ids.append(inter_obj.create(cr, uid, int_args, context=context))
         return inter_obj.open_intervention(cr, uid, int_ids, context=context)
 

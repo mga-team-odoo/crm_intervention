@@ -136,7 +136,7 @@
                             <page string="Invoicing" groups="base.group_crm_intervention_manager">
                                 <group colspan="4" col="8">
                                     <group colspan="4" col="2">
-                                        <field domain="[('parent_id','=',partner_id)]" name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"
+                                        <field name="partner_invoice_id" required="1" attrs="{'readonly':[('state','=','done')]}"
                                             context="{'show_address': 1}" options='{"always_reload": True}'/>
                                         <field name="invoice_id" attrs="{'readonly': [('contract_id','!=', False)]}" 
                                             context="{'form_view_ref': 'account.invoice_form'}"/>

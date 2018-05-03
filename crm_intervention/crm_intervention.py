@@ -762,6 +762,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
         Hook to add more than one line in the invoice
         """
         line_obj = self.pool['account.invoice.line']
+        if inter.contract_id and not inter.out_of_contract:
+            return lines
         line = {
             'origin': inter.number_request,
             'product_id': inter.product_id.id,
@@ -793,6 +795,16 @@ class crm_intervention(base_state, base_stage, orm.Model):
         lines.append(line)
         return lines
 
+    def _need_direct_invoice(self, cr, uid, inter, context=None):
+        """
+        Return Number of line to invoice
+        """
+        if not inter.contract_id:
+            return 1
+        if inter.out_of_contract:
+            return 1
+        return 0
+
     def generate_invoice(self, cr, uid, ids, context=None):
         """
         Generate a direct invoice
@@ -800,7 +812,8 @@ class crm_intervention(base_state, base_stage, orm.Model):
         inv_obj = self.pool['account.invoice']
         # line_obj = self.pool['account.invoice.line']
         for inter in self.browse(cr, uid, ids, context=context):
-            if not inter.out_of_contract and inter.contract_id:
+            l = self._need_direct_invoice(cr, uid, inter, context=context)
+            if not l:
                 continue
 
             if inter.invoice_id:

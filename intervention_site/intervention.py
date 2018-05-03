@@ -212,6 +212,21 @@ class CrmIntervention(orm.Model):
 
         return True
 
+    def _need_direct_invoice(self, cr, uid, inter, context=None):
+        """
+        Return Number of line to invoice
+        """
+        res = super(CrmIntervention, self)._need_direct_invoice(cr, uid, inter, context=context)
+        for l in inter.line_ids:
+            if not inter.contract_id:
+                res += 1
+                continue
+            if l.out_of_contract:
+                res += 1
+                continue
+
+        return res
+
     def _prepare_invoice_line(self, cr, uid, inter, lines, inv, context=None):
         """
         Add lines of products and servcies to invoice

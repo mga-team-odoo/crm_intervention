@@ -91,6 +91,7 @@
       assert inter.invoice_uom_id.id == inter.product_id.uom_id.id, 'Unit is not the same on product and intervention'
       assert inter.contract_id.id >  0, 'This partner must have a contract'
       assert inter.out_of_contract == True, 'Out of contract must be check!!'
+      assert self._need_direct_invoice(cr, uid, inter) == 1, 'Must be one line to invoice'
 -
     Generate invoice 
 -
