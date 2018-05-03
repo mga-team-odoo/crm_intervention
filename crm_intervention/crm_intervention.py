@@ -755,7 +755,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
         """
         Compose the origin field for invoice line
         """
-        return inter.name
+        return inter.number_request
 
     def _prepare_invoice_line(self, cr, uid, inter, lines, inv, context=None):
         """
