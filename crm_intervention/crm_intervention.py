@@ -879,12 +879,12 @@ class crm_intervention(base_state, base_stage, orm.Model):
                     _('Not journal defined on teh employee!!'))
 
             vals = {
-                'name': _('BI Num %s') % inter.number_request,
+                'ref': _('BI Num %s') % inter.number_request,
                 'account_id': inter.contract_id.id,
                 'journal_id': emp.journal_id.id,
                 'user_id': inter.user_id.id,
                 'date': inter.date_effective_start[:10],
-                'ref': inter.name[:64],
+                'name': inter.name[:64],
                 'to_invoice': inter.contract_id.to_invoice.id,
                 'product_id': inter.product_id.id,
                 'unit_amount': unit_amount,
