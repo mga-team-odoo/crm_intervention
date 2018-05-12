@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-22 15:52+0000\n"
-"PO-Revision-Date: 2018-04-22 17:55+0200\n"
+"POT-Creation-Date: 2018-05-12 09:10+0000\n"
+"PO-Revision-Date: 2018-05-12 11:15+0200\n"
 "Last-Translator: Christophe CHAUVET <christophe.chauvet@gmail.com>\n"
 "Language-Team: Mirounga\n"
 "Language: fr\n"
@@ -26,6 +26,11 @@ msgstr "Emplacement d'intervention"
 #: field:intervention.equipment,last_int_date:0
 msgid "Last Intervention"
 msgstr "Dernière intervention"
+
+#. module: intervention_site
+#: help:intervention.site,inter_ids:0
+msgid "List of intervention for this site"
+msgstr "Liste des interventions pour ce site"
 
 #. module: intervention_site
 #: view:intervention.equipment:0
@@ -223,7 +228,7 @@ msgid "Group By..."
 msgstr "Grouper par..."
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:187
+#: code:addons/intervention_site/intervention.py:190
 #, python-format
 msgid "Missing location to made output movement"
 msgstr "Emplacement manquant pour faire la sortie de stock"
@@ -268,7 +273,8 @@ msgstr "Historiques pour cet équipement"
 #: code:addons/intervention_site/intervention_equipment.py:315
 #, python-format
 msgid "Please define sales journal for this company: \"%s\" (id:%d)."
-msgstr "Veuillez définir un journal de vente pour cette société: \"%s\" (id:%d)."
+msgstr ""
+"Veuillez définir un journal de vente pour cette société: \"%s\" (id:%d)."
 
 #. module: intervention_site
 #: help:intervention.equipment,free1:0
@@ -420,7 +426,7 @@ msgid "Shipping address :"
 msgstr "Adresse de livraison :"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:203
+#: code:addons/intervention_site/intervention.py:206
 #, python-format
 msgid "Lot is necessary for product \"%s\""
 msgstr "Le lot est necessaire pour ce produit \"%s\""
@@ -446,7 +452,7 @@ msgid "Quantity of distance to invoice"
 msgstr "Quantité du trajet à facturer"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:388
+#: code:addons/intervention_site/intervention_equipment.py:394
 #, python-format
 msgid "Sequence Not Defined on the company!!"
 msgstr "La séquence n'est pas définit sur la société!!"
@@ -533,6 +539,7 @@ msgid "Commissioning"
 msgstr "Mise en service"
 
 #. module: intervention_site
+#: view:crm.intervention:0
 #: report:intervention_site.inter_report:0
 msgid "Materials"
 msgstr "Matériels"
@@ -553,7 +560,7 @@ msgid "by"
 msgstr "par"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:403
+#: code:addons/intervention_site/intervention_equipment.py:409
 #, python-format
 msgid "You cannot delete equipemnt with history!!, please inactivate it"
 msgstr ""
@@ -561,7 +568,7 @@ msgstr ""
 "l'inactiver"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:159
+#: code:addons/intervention_site/intervention_site.py:162
 #, python-format
 msgid "You cannot delete site with equipments!! Please inactivate it"
 msgstr ""
@@ -826,6 +833,7 @@ msgstr "Date de mise en service"
 
 #. module: intervention_site
 #: view:account.analytic.account:0
+#: view:intervention.site:0
 msgid "All days planned"
 msgstr "Planifié toute la journée"
 
@@ -857,16 +865,16 @@ msgid "Out of contract"
 msgstr "Hors contrat"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:186
-#: code:addons/intervention_site/intervention.py:202
-#: code:addons/intervention_site/intervention_equipment.py:402
-#: code:addons/intervention_site/intervention_site.py:158
+#: code:addons/intervention_site/intervention.py:189
+#: code:addons/intervention_site/intervention.py:205
+#: code:addons/intervention_site/intervention_equipment.py:408
+#: code:addons/intervention_site/intervention_site.py:161
 #, python-format
 msgid "Error"
 msgstr "Erreur"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_site.py:144
+#: code:addons/intervention_site/intervention_site.py:147
 #, python-format
 msgid "Sequence not defined on company"
 msgstr "La séquence n'est pas définit sur la société"
@@ -890,6 +898,8 @@ msgstr "Déc 1"
 #. module: intervention_site
 #: view:account.analytic.account:0
 #: field:account.analytic.account,inter_ids:0
+#: view:intervention.site:0
+#: field:intervention.site,inter_ids:0
 msgid "Interventions"
 msgstr "Interventions"
 
@@ -1019,7 +1029,7 @@ msgid "Duplicate from [%s] %s"
 msgstr "Dupliquer depuis [%s] %s"
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:275
+#: code:addons/intervention_site/intervention.py:297
 #, python-format
 msgid "BI Num %s"
 msgstr "BI Num %s"
@@ -1255,6 +1265,7 @@ msgstr "Type d'équipement"
 
 #. module: intervention_site
 #: view:account.analytic.account:0
+#: view:intervention.site:0
 msgid "Planned for"
 msgstr "Planifié pour"
 
