@@ -199,7 +199,7 @@
             <field name="name">CRM - intervention Tree</field>
             <field name="model">crm.intervention</field>
             <field name="arch" type="xml">
-                <tree string="Intervention Tree" colors="black:state=='open';blue:state=='pending';gray:state in ('cancel','close')">
+                <tree string="Intervention Tree" colors="black:state=='open';blue:state=='pending';green:state=='draft';gray:state in ('cancel','close')">
                     <field name="number_request"/>
                     <field name="name" string="Interventions"/>
                     <field name="partner_id" string="Partner"/>

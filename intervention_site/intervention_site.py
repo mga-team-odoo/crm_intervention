@@ -29,6 +29,9 @@ class InterventionSite(orm.Model):
         'equipment_ids': fields.one2many(
             'intervention.equipment', 'site_id', 'Equipments',
             help='Equipment in this site'),
+        'inter_ids': fields.one2many(
+            'crm.intervention', 'site_id', 'Interventions',
+            help='List of intervention for this site'),
         'company_id': fields.many2one(
             'res.company', 'Company'),
         'notes': fields.text('Notes', help='Notes'),

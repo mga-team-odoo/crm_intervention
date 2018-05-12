@@ -79,6 +79,22 @@
                             <page string="Notes">
                                 <field name="notes" nolabel="1" colspan="4"/>
                             </page>
+                            <page string="Interventions">
+                                <field name="inter_ids" nolabel="1" colspan="4" widget="many2many">
+                                    <tree string="Interventions" colors="black:state=='open';blue:state=='pending';green:state=='draft';gray:state in ('cancel','close')">
+                                        <field name="number_request"/>
+                                        <field name="name" string="Interventions"/>
+                                        <field name="partner_id" string="Partner"/>
+                                        <field name="user_id" string="Planned for"/>
+                                        <field name="date_planned_start"/>
+                                        <field name="date_effective_start"/>
+                                        <field name="alldays_planned" string="All days planned"/>
+                                        <field name="duration_planned" widget="float_time"/>
+                                        <field name="type_id"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
                             <page string="Invoicing" groups="base.group_crm_intervention_manager">
                                 <group>
                                     <group name="invoicing">
