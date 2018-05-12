@@ -8,7 +8,8 @@
             <field name="inherit_id" ref="crm_intervention.crm_case_form_view_intervention"/>
             <field name="priority" eval="25"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook//page[@string='After Intervention']//field[@name='description']" position="before">
+                <xpath expr="//notebook//page[@string='After Intervention']//field[@name='categ_id']" position="after">
+                    <separator string="Materials" colspan="4"/>
                     <newline/>
                     <field name="src_location_id" domain="[('usage','=', 'internal')]"/>
                     <button string="Create Output" type="object"
