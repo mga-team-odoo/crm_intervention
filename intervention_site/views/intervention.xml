@@ -47,6 +47,21 @@
             </field>
         </record>
 
+        <record id="view_inter_site_equip_tree" model="ir.ui.view">
+            <field name="name">crm.intervention.tree - Site - Equip</field>
+            <field name="model">crm.intervention</field>
+            <field name="inherit_id" ref="crm_intervention.crm_case_tree_view_intervention"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type_id']" position="before">
+                    <field name="site_id"/>
+                </xpath>
+                <xpath expr="//field[@name='type_id']" position="after">
+                    <field name="equipment_id"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="view_inter_site_mandatory_form" model="ir.ui.view">
             <field name="name">crm.intervention.form - Site mandatory</field>
             <field name="model">crm.intervention</field>
