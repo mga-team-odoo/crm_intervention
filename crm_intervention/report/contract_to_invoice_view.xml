@@ -32,6 +32,16 @@
             <field name="arch" type="xml">
                 <form string="Line to invoice">
                     <field name="contract_id"/>
+                    <field name="partner_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="reference"/>
+                    <field name="real_date"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                    <field name="user_id"/>
+                    <field name="manager_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
                 </form>
             </field>
         </record>

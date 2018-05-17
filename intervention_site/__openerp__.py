@@ -44,6 +44,7 @@
         'views/intervention.xml',
         'wizard/generate_intervention_view.xml',
         'report/crm_intervention_view.xml',
+        'report/contract_to_invoice_view.xml',
     ],
     'demo': [
         'demo/site.xml',

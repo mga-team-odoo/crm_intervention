@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_report_contact_inv_site_tree" model="ir.ui.view">
+            <field name="name">report.contract.invoice.tree - site</field>
+            <field name="model">report.contract.invoice</field>
+            <field name="inherit_id" ref="crm_intervention.view_report_contract_invoice_tree"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='contract_id']" position="after">
+                    <field name="site_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_report_contact_site_search" model="ir.ui.view">
+            <field name="name">report.contract.invoice.search</field>
+            <field name="model">report.contract.invoice</field>
+            <field name="inherit_id" ref="crm_intervention.view_report_contract_invoice_search"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='contract_id']" position="after">
+                    <field name="site_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
