@@ -825,7 +825,7 @@ class crm_intervention(base_state, base_stage, orm.Model):
 
             vals = {
                 'partner_id': inter.partner_invoice_id.id,
-                'date_invoice': inter.date_effective_start[:10],
+                'date_invoice': time.strftime('%Y-%m-%d'),
                 'type': 'out_invoice',
                 'origin': _('GI %s') % inter.number_request,
                 'user_id': inter.user_id.id,

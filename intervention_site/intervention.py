@@ -31,6 +31,18 @@ class account_analytic_account(orm.Model):
             help='intervention link to this contract'),
     }
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        """
+        Don't duplicate site and intervention
+        """
+        if context is None:
+            context = {}
+        default.update({
+            'site_ids': [],
+            'inter_ids': [],
+        })
+        return super(account_analytic_account, self).copy(cr, uid, id, default, context=context)
+
 
 class CrmIntervention(orm.Model):
     _inherit = 'crm.intervention'
