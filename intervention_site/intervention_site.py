@@ -193,6 +193,11 @@ class InterventionSite(orm.Model):
                     'contract_id': False,
                     'partner_invoice_id': part_id,
                 })
+            if site.user_id and site.user_id.inter_location_id:
+                int_args.update({
+                    'src_location_id': site.user_id.inter_location_id.id,
+                })
+
             int_args['date_planned_end'] = inter_obj.onchange_planned_duration(
                 cr, uid, [], 1.0, int_args['date_planned_start']
             )['value']['date_planned_end']

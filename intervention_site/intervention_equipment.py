@@ -314,6 +314,10 @@ class InterventionEquipment(orm.Model):
                 raise orm.except_orm(_('Error!'),
                     _('Please define sales journal for this company: "%s" (id:%d).') %
                                      (ctr.company_id.name, ctr.company_id.id))
+            term_id = ctr.partner_id.property_payment_term and ctr.partner_id.property_payment_term.id or False
+            if ctr.payment_term_id:
+                term_id = ctr.payment_term_id.id
+
             inv_data = {
                 'name': ctr.name or '',
                 'origin': _('recurring invoicing: %s') % ctr.name,
@@ -325,7 +329,7 @@ class InterventionEquipment(orm.Model):
                 'invoice_line': [],
                 'currency_id': ctr.pricelist_id.currency_id.id,
                 'comment': ctr.description or False,
-                'payment_term': ctr.partner_id.property_payment_term and ctr.partner_id.property_payment_term.id or False,
+                'payment_term': term_id,
                 'fiscal_position': ctr.partner_id.property_account_position and ctr.partner_id.property_account_position.id or False,
                 'date_invoice': False,
                 'company_id': ctr.company_id.id,

@@ -390,6 +390,9 @@
                     <field name="use_inter"/>
                     <label for="use_inter" string="Intervention"/>
                 </xpath>
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="payment_term_id"/>
+                </xpath>
             </field>
         </record>
 

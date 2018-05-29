@@ -1045,6 +1045,9 @@ class account_analytic_account(orm.Model):
         'use_inter': fields.boolean(
             'Use in intervention',
             help='Check this if this contract can be in intervention'),
+        'payment_term_id': fields.many2one(
+            'account.payment.term', 'Payment terms',
+            help='Select payment term for this contract, if empty we use it at partner form'),
     }
 
     _defaults = {
