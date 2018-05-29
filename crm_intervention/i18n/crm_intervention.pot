@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-12 09:10+0000\n"
-"PO-Revision-Date: 2018-05-12 09:10+0000\n"
+"POT-Creation-Date: 2018-05-29 18:53+0000\n"
+"PO-Revision-Date: 2018-05-29 18:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -290,6 +290,11 @@ msgid "Analytic Account"
 msgstr ""
 
 #. module: crm_intervention
+#: help:account.analytic.account,payment_term_id:0
+msgid "Select payment term for this contract, if empty we use it at partner form"
+msgstr ""
+
+#. module: crm_intervention
 #: help:crm.intervention,message_summary:0
 msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
 msgstr ""
@@ -517,9 +522,9 @@ msgid "Create invoice"
 msgstr ""
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:871
-#, python-format
-msgid "No section defined on this intervention!"
+#: view:crm.intervention:0
+#: selection:crm.intervention,state:0
+msgid "Pending"
 msgstr ""
 
 #. module: crm_intervention
@@ -553,8 +558,8 @@ msgid "Type of the intervention"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "Intervention requests during last 7 days"
+#: field:account.analytic.account,payment_term_id:0
+msgid "Payment terms"
 msgstr ""
 
 #. module: crm_intervention
@@ -894,8 +899,9 @@ msgid "GI %s"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "7 Days"
+#: code:addons/crm_intervention/crm_intervention.py:871
+#, python-format
+msgid "No section defined on this intervention!"
 msgstr ""
 
 #. module: crm_intervention
@@ -906,6 +912,11 @@ msgstr ""
 #. module: crm_intervention
 #: report:crm_intervention.inter_report:0
 msgid "from"
+msgstr ""
+
+#. module: crm_intervention
+#: view:crm.intervention:0
+msgid "Intervention requests since today and the future"
 msgstr ""
 
 #. module: crm_intervention
@@ -1000,11 +1011,6 @@ msgid "Interlocuteur name and permission :"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-msgid "All days planned"
-msgstr ""
-
-#. module: crm_intervention
 #: help:report.contract.invoice,company_id:0
 msgid "Company relate to this line"
 msgstr ""
@@ -1015,8 +1021,9 @@ msgid "Planned duration"
 msgstr ""
 
 #. module: crm_intervention
-#: model:email.template,report_name:crm_intervention.email_template_repairer
-msgid "IR_${(object.number_request or 'XXX').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}"
+#: code:addons/crm_intervention/crm_intervention.py:355
+#, python-format
+msgid "Date effective end or all days is required before to pending the intervention"
 msgstr ""
 
 #. module: crm_intervention
@@ -1379,6 +1386,11 @@ msgid "Quantity to invoice"
 msgstr ""
 
 #. module: crm_intervention
+#: view:crm.intervention:0
+msgid "In the future"
+msgstr ""
+
+#. module: crm_intervention
 #: field:crm.intervention,date_action_last:0
 msgid "Last Action"
 msgstr ""
@@ -1439,12 +1451,6 @@ msgid "References"
 msgstr ""
 
 #. module: crm_intervention
-#: view:crm.intervention:0
-#: selection:crm.intervention,state:0
-msgid "Pending"
-msgstr ""
-
-#. module: crm_intervention
 #: model:crm.case.categ,name:crm_intervention.categ_inter5
 msgid "Furious"
 msgstr ""
@@ -1462,9 +1468,8 @@ msgid "Contract to invoice"
 msgstr ""
 
 #. module: crm_intervention
-#: code:addons/crm_intervention/crm_intervention.py:355
-#, python-format
-msgid "Date effective end or all days is required before to pending the intervention"
+#: model:email.template,report_name:crm_intervention.email_template_repairer
+msgid "IR_${(object.number_request or 'XXX').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}"
 msgstr ""
 
 #. module: crm_intervention

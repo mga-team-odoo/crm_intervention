@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-12 09:10+0000\n"
-"PO-Revision-Date: 2018-05-12 09:10+0000\n"
+"POT-Creation-Date: 2018-05-29 18:53+0000\n"
+"PO-Revision-Date: 2018-05-29 18:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -224,7 +224,7 @@ msgid "Group By..."
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:190
+#: code:addons/intervention_site/intervention.py:202
 #, python-format
 msgid "Missing location to made output movement"
 msgstr ""
@@ -417,7 +417,7 @@ msgid "Shipping address :"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:206
+#: code:addons/intervention_site/intervention.py:218
 #, python-format
 msgid "Lot is necessary for product \"%s\""
 msgstr ""
@@ -443,7 +443,7 @@ msgid "Quantity of distance to invoice"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:394
+#: code:addons/intervention_site/intervention_equipment.py:398
 #, python-format
 msgid "Sequence Not Defined on the company!!"
 msgstr ""
@@ -451,6 +451,11 @@ msgstr ""
 #. module: intervention_site
 #: help:crm.intervention,site_id:0
 msgid "Site to made this intervention"
+msgstr ""
+
+#. module: intervention_site
+#: help:report.contract.invoice,site_id:0
+msgid "Site relate"
 msgstr ""
 
 #. module: intervention_site
@@ -551,7 +556,7 @@ msgid "by"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:409
+#: code:addons/intervention_site/intervention_equipment.py:413
 #, python-format
 msgid "You cannot delete equipemnt with history!!, please inactivate it"
 msgstr ""
@@ -780,6 +785,11 @@ msgstr ""
 
 #. module: intervention_site
 #: view:intervention.equipment:0
+msgid "Without site"
+msgstr ""
+
+#. module: intervention_site
+#: view:intervention.equipment:0
 #: field:intervention.equipment,active:0
 #: field:intervention.equipment.type,active:0
 #: field:intervention.site,active:0
@@ -850,9 +860,9 @@ msgid "Out of contract"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:189
-#: code:addons/intervention_site/intervention.py:205
-#: code:addons/intervention_site/intervention_equipment.py:408
+#: code:addons/intervention_site/intervention.py:201
+#: code:addons/intervention_site/intervention.py:217
+#: code:addons/intervention_site/intervention_equipment.py:412
 #: code:addons/intervention_site/intervention_site.py:161
 #, python-format
 msgid "Error"
@@ -889,7 +899,7 @@ msgid "Interventions"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention_equipment.py:319
+#: code:addons/intervention_site/intervention_equipment.py:323
 #, python-format
 msgid "recurring invoicing: %s"
 msgstr ""
@@ -988,7 +998,8 @@ msgstr ""
 
 #. module: intervention_site
 #: view:intervention.equipment:0
-msgid "Without site"
+#: view:intervention.site:0
+msgid "Invoicing"
 msgstr ""
 
 #. module: intervention_site
@@ -1013,7 +1024,7 @@ msgid "Duplicate from [%s] %s"
 msgstr ""
 
 #. module: intervention_site
-#: code:addons/intervention_site/intervention.py:297
+#: code:addons/intervention_site/intervention.py:309
 #, python-format
 msgid "BI Num %s"
 msgstr ""
@@ -1161,6 +1172,7 @@ msgstr ""
 #: field:crm.intervention,site_id:0
 #: view:intervention.equipment:0
 #: field:intervention.equipment,site_id:0
+#: field:report.contract.invoice,site_id:0
 msgid "Site"
 msgstr ""
 
@@ -1205,9 +1217,8 @@ msgid "Periodic invoicing"
 msgstr ""
 
 #. module: intervention_site
-#: view:intervention.equipment:0
-#: view:intervention.site:0
-msgid "Invoicing"
+#: model:ir.model,name:intervention_site.model_report_contract_invoice
+msgid "Contract to invoice"
 msgstr ""
 
 #. module: intervention_site
