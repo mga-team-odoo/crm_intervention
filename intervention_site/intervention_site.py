@@ -80,7 +80,8 @@ class InterventionSite(orm.Model):
     }
 
     _sql_constraints = [
-        ('code_unique', 'UNIQUE (code)', 'The code of the site must be unique !'),
+        ('code_unique', 'UNIQUE (code, company_id)',
+         'The code of the site must be unique per company !'),
     ]
 
     def name_get(self, cr, uid, ids, context=None):
