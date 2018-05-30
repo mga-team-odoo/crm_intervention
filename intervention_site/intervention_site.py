@@ -79,6 +79,10 @@ class InterventionSite(orm.Model):
         'distance_quantity': 1.0,
     }
 
+    _sql_constraints = [
+        ('code_unique', 'UNIQUE (code)', 'The code of the site must be unique !'),
+    ]
+
     def name_get(self, cr, uid, ids, context=None):
         """
         For each site, add zip and city
