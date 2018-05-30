@@ -172,6 +172,11 @@ class InterventionEquipment(orm.Model):
         'invoicing_quantity': 1.0,
     }
 
+    _sql_constraints = [
+        ('code_unique', 'UNIQUE (code, company_id)',
+         'The code of the equipment must be unique per company !'),
+    ]
+
     def name_get(self, cr, uid, ids, context=None):
         """
         For each equipment, add site and serial number
