@@ -164,36 +164,52 @@ class report_contract_invoice(orm.Model):
         """
         return {}
 
-    def _invoice_lines(self, cr, uid, lines, context=None):
+    def _invoice_lines(self, cr, uid, lines, ctr, context=None):
         """
         Compose a dict for each lines
         """
         res = []
         cpt = 1
         inter_obj = self.pool['crm.intervention']
+        invline_obj = self.pool['account.invoice.line']
+
+        # Force type out_invoice on context
+        ctx = context.copy()
+        ctx['type'] = 'out_invoice'
         for l in lines:
             pline = {
-                'name': l.description,
                 'product_id': l.product_id.id,
                 'quantity': l.quantity,
                 'uos_id': l.uom_id.id,
-                'sequence': cpt,
                 'price_unit': 0.0,
                 'discount': 0.0,
-                'invoice_line_tax_id': [(6, 0, [x.id for x in l.product_id.taxes_id])],
-                'account_analytic_id': l.contract_id.id,
             }
-            cpt += 1
             partner = l.partner_id
+            fpos_id = ctr.partner_id.property_account_position and \
+                ctr.partner_id.property_account_position.id or False
+            vals = invline_obj.product_id_change(
+                cr, uid, [], l.product_id.id, l.uom_id.id,
+                l.quantity, partner_id=ctr.partner_id.id, fposition_id=fpos_id,
+                context=ctx, company_id=l.company_id.id
+            )
+            pline.update(vals['value'])
+            pline.update({
+                'name': l.description,
+                'sequence': cpt,
+                'account_analytic_id': l.contract_id.id,
+                'invoice_line_tax_id': [(6, 0, [x for x in pline['invoice_line_tax_id']])],
+            })
             pline.update(inter_obj._compute_pricelist(
                 cr, uid, partner, l.product_id, l.quantity,
-                context=context))  # add price_unit and discount
-            pline['origin'] = self._hook_compose_origin(cr, uid, l, context=context)
-            pline['notes'] = self._hook_compose_notes(cr, uid, l, context=context)
+                context=ctx))  # add price_unit and discount
+            pline['origin'] = self._hook_compose_origin(cr, uid, l, context=ctx)
+            pline['notes'] = self._hook_compose_notes(cr, uid, l, context=ctx)
+
             # Call hook to add additionnal field
-            pline.update(self._hook_line_extra(cr, uid, l, context=context))
+            pline.update(self._hook_line_extra(cr, uid, l, context=ctx))
 
             res.append(pline)
+            cpt += 1
         return res
 
     def _invoiced_contract(self, cr, uid, values, context=None):
@@ -208,7 +224,7 @@ class report_contract_invoice(orm.Model):
             ctr = ctr_obj.browse(cr, uid, ctr_id, context=context)
             accline = self.browse(cr, uid, line_ids, context=context)
             vals = self._invoice_header(cr, uid, ctr, context=context)
-            lines = self._invoice_lines(cr, uid, accline, context=context)
+            lines = self._invoice_lines(cr, uid, accline, ctr, context=context)
             vals.update(self._hook_header_extra(cr, uid, ctr, context=context))
             vals['invoice_line'] = [(0, 0, l) for l in lines]
             inv_id = inv_obj.create(cr, uid, vals, context=context)
