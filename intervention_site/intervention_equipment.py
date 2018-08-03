@@ -318,6 +318,10 @@ class InterventionEquipment(orm.Model):
             if ctr.payment_term_id:
                 term_id = ctr.payment_term_id.id
 
+            cust_currency_id = ctr.partner_id.property_product_pricelist.currency_id.id
+            if ctr.pricelist_id:
+                cust_currency_id = ctr.pricelist_id.currency_id.id
+
             inv_data = {
                 'name': ctr.name or '',
                 'origin': _('recurring invoicing: %s') % ctr.name,
@@ -327,7 +331,7 @@ class InterventionEquipment(orm.Model):
                 'partner_id': ctr.partner_id.id,
                 'journal_id': journal_ids[0],
                 'invoice_line': [],
-                'currency_id': ctr.pricelist_id.currency_id.id,
+                'currency_id': cust_currency_id,
                 'comment': ctr.description or False,
                 'payment_term': term_id,
                 'fiscal_position': ctr.partner_id.property_account_position and ctr.partner_id.property_account_position.id or False,
