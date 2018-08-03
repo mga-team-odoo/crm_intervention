@@ -318,9 +318,9 @@ class InterventionEquipment(orm.Model):
             if ctr.payment_term_id:
                 term_id = ctr.payment_term_id.id
 
-            cust_currency_id = ctr.partner_id.property_product_pricelist.currency_id.id
+            pricelist = ctr.partner_id.property_product_pricelist
             if ctr.pricelist_id:
-                cust_currency_id = ctr.pricelist_id.currency_id.id
+                pricelist = ctr.pricelist_id
 
             inv_data = {
                 'name': ctr.name or '',
@@ -331,7 +331,7 @@ class InterventionEquipment(orm.Model):
                 'partner_id': ctr.partner_id.id,
                 'journal_id': journal_ids[0],
                 'invoice_line': [],
-                'currency_id': cust_currency_id,
+                'currency_id': pricelist.currency_id.id,
                 'comment': ctr.description or False,
                 'payment_term': term_id,
                 'fiscal_position': ctr.partner_id.property_account_position and ctr.partner_id.property_account_position.id or False,
@@ -353,13 +353,12 @@ class InterventionEquipment(orm.Model):
                     inv_data['date_invoice'] = line.date
                 # We compute the price from teh pricelist on contract
                 # Because no priclist take in account from the invoice directly
-                pricelist = ctr.pricelist_id.id
                 product = line.product_id.id
-                price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist],
+                price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist.id],
                     product, line.unit_amount or 1.0, ctr.partner_id.id, {
                         'uom': line.product_uom_id.id,
                         'date': line.date,
-                        })[pricelist]
+                        })[pricelist.id]
                 account = line.general_account_id.id or False
                 if not account:
                     account = line.product_id.property_account_income.id or False
