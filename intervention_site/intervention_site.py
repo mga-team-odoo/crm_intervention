@@ -127,6 +127,7 @@ class InterventionSite(orm.Model):
         default.update({
             'code': '/',
             'equipment_ids': [],
+            'inter_ids': [],
             'last_date': False,
             'next_date': False,
             'notes': False,
